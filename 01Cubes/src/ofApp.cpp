@@ -27,7 +27,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     camera.begin();
-    ofDrawAxis(100.0);
+    //ofDrawAxis(100.0);
     bark.bind();
     for(auto s : stair){
         s.draw();
