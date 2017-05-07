@@ -6,14 +6,23 @@ I've used openFrameoworks instead the suggested library because I'm more familia
 ### Cubes
 
 App: 01Cubes
+
 Notes: This project has [ofxPhyllotaxis](https://github.com/edap/ofxPhyllotaxis) has dependency.
 ![cubes](img/cubes.png)
 
 ### Meshes
 
+App:
+
 ### Geometry Design
+
+App:
 
 ### Rays
 
+App:
+
 ### Paths
+
+App:
 
