@@ -7,7 +7,7 @@ I've used openFrameoworks instead the suggested library because I'm more familia
 
 App: 01Cubes
 
-Notes: This project has [ofxPhyllotaxis](https://github.com/edap/ofxPhyllotaxis) has dependency.
+Notes: This project contains the app that was used as example for the  [ofxPhyllotaxis](https://github.com/edap/ofxPhyllotaxis) addon.
 ![cubes](img/cubes.png)
 
 ### Meshes
