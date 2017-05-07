@@ -2,91 +2,93 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofBackground(37, 203, 206);
+    gui.setup();
+    gui.setPosition(5, 40);
+    gui.add(degree.setup("degree", 137.5, 130.00, 140.00));
+    gui.add(spread.setup("spread", 11, 2, 40));
+    gui.add(extrude.setup("extrude", 0.3, 0.01, 0.90));
     light.setup();
     light.setPosition(-100, 200,0);
-    for(unsigned int i =0; i< nSteps; i++){
-        auto step = ofBoxPrimitive(30, stepHeight, 100);
-        step.pan(i*10);
-        step.move(ofVec3f(0,i*stepHeight,0));
-        stair.push_back(step);
-    }
+    masterColor = ofFloatColor::red;
+    secondColor = ofFloatColor::yellow;
     ofEnableDepthTest();
-
-    ofDisableArbTex();
-    ofLoadImage(bark,"bark.jpg");
-    bark.setTextureWrap(GL_REPEAT, GL_REPEAT);
-    bark.generateMipmap(); // it creates a mipmap out of that image
-    bark.setTextureMinMagFilter(GL_LINEAR_MIPMAP_LINEAR, GL_NEAREST); //activate mipmap filtering once texture has been loaded
+    for(int i = 0;  i < nCubes;i++){
+        children.push_back(ofBoxPrimitive(5,5,5));
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    float rad = ofDegToRad(degree);
+    for (int i = 0;  i < nCubes;i++) {
+        ofVec3f pos;
+        if (selectedType == "simple") {
+            pos = ofxPhyllotaxis::simple(i, rad, spread);
+        }
 
+        if (selectedType == "conical") {
+            pos = ofxPhyllotaxis::conical(i, rad, spread, extrude);
+        }
+
+        if (selectedType == "apple") {
+            pos = ofxPhyllotaxis::apple(i, rad, spread, nCubes);
+        }
+        children[i].setPosition(pos);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    maybeDrawGui();
     camera.begin();
-    //ofDrawAxis(100.0);
-    bark.bind();
-    for(auto s : stair){
-        s.draw();
+
+    secondMaterial.setEmissiveColor(masterColor);
+    for (int i = 0;  i < nCubes;i++) {
+        float lerp = ofMap(i, 0, nCubes, 0.0, 1.0);
+        auto interpolatedColor = masterColor.getLerped(secondColor, lerp);
+        secondMaterial.setEmissiveColor(interpolatedColor);
+        secondMaterial.begin();
+        children[i].draw();
+        secondMaterial.end();
     }
-    bark.unbind();
     camera.end();
+}
+
+void ofApp::maybeDrawGui(){
+    if(!hideGui){
+        ofDisableDepthTest();
+        gui.draw();
+        ofPushStyle();
+        string displayGui = "press 'g' to toggle the gui, up and down to change presets";
+        ofDrawBitmapString(displayGui, 5, 10);
+        string types = "press 1, 2, 3 to try different implementation";
+        ofDrawBitmapString(types, 5, 20);
+        string currentType = "current: "+ selectedType;
+        ofDrawBitmapString(currentType, 5, 30);
+        ofPopStyle();
+        ofEnableDepthTest();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
+    switch(key){
+        case 'g':
+            hideGui = !hideGui;
+            break;
+        case 49:
+            selectedType = "conical";
+            break;
+        case 50:
+            selectedType = "apple";
+            break;
+        case 51:
+            selectedType = "simple";
+            break;
+        default:
+            break;
+    }
 }
 
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
-}

@@ -1,31 +1,31 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxPhyllotaxis.h"
+#include "ofxPanel.h"
 
 class ofApp : public ofBaseApp{
 
-	public:
-		void setup();
-		void update();
-		void draw();
+public:
+    void setup();
+    void update();
+    void draw();
 
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
+    void keyPressed(int key);
+    void maybeDrawGui();
 
-    int stepHeight = 5;
-    ofTexture  bark;
+    int nCubes = 400;
+    bool hideGui = false;
+    ofFloatColor masterColor;
+    ofFloatColor secondColor;
+    ofMaterial secondMaterial;
     ofEasyCam camera;
     ofLight light;
-    int nSteps = 50;
-    vector<ofBoxPrimitive> stair;
-		
+    vector<ofBoxPrimitive> children;
+    string selectedType = "simple";
+
+    ofxPanel gui;
+    ofxFloatSlider degree;
+    ofxFloatSlider spread;
+    ofxFloatSlider extrude;
 };
