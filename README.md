@@ -19,7 +19,7 @@ Notes: This project contains one of the app that was used as example for the  [o
 
 ### Rays
 
-Notes: This app is a WIP. The Cornell Box model comes from [McGuire2017] Morgan McGuire, Computer Graphics Archive, July 2017 (https://casual-effects.com/data)
+Notes: This app is a WIP. The Cornell Box model comes from [ Morgan McGuire, Computer Graphics Archive, July 2017] (https://casual-effects.com/data)
 
 App: 03Rays
 
