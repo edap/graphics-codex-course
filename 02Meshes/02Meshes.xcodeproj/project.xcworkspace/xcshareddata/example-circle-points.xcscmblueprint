@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "EBBC79538C5A77FA71A3398569A2AA85947E30C9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EBBC79538C5A77FA71A3398569A2AA85947E30C9" : 9223372036854775807,
+    "4A914E0190329EE6743444659080E621E3C5555A" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A20D4684-6541-4B9E-B6D0-1DEE9A1EF08E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EBBC79538C5A77FA71A3398569A2AA85947E30C9" : "graphixCodex\/",
+    "4A914E0190329EE6743444659080E621E3C5555A" : "..\/addons\/ofxBranchesPrimitive"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "example-circle-points",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "02Meshes\/example-circle-points.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:edap\/ofxBranchesPrimitive.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4A914E0190329EE6743444659080E621E3C5555A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:edap\/graphics-codex-course.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EBBC79538C5A77FA71A3398569A2AA85947E30C9"
+    }
+  ]
+}

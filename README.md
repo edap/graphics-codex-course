@@ -1,5 +1,4 @@
 This repository contains my exercises for the [Graphics Codex](http://graphicscodex.com/projects/projects/) online [book](http://graphicscodex.com/).
-I've used openFrameoworks instead the suggested library because I'm more familiar with it
 
 ## List of Projects
 
@@ -12,15 +11,17 @@ Notes: This project contains the app that was used as example for the  [ofxPhyll
 
 ### Meshes
 
-App:
+App: 02Meshes
 
-### Geometry Design
+Notes: This project contains one of the app that was used as example for the  [ofxBranchesPrimitive](https://github.com/edap/ofxBranchesPrimitive) addon.
+![02Meshes](img/02Meshes.png)
 
-App:
 
 ### Rays
 
-App:
+Notes: This app is a WIP. The Cornell Box model comes from [McGuire2017] Morgan McGuire, Computer Graphics Archive, July 2017 (https://casual-effects.com/data)
+
+App: 03Rays
 
 ### Paths
 
