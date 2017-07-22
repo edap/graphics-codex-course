@@ -24,7 +24,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-    void initImage(int width, int height);
+    shared_ptr<ofImage> initImage(int width, int height);
+    shared_ptr<ofImage> image;
+    void render(const PinholeCamera& camera, shared_ptr<ofImage> image) const;
 
     ofxAssimpModelLoader model;
     //ofLight	light;
@@ -36,7 +38,6 @@ class ofApp : public ofBaseApp{
     bool bHelpText;
     ofEasyCam cam;
     PinholeCamera myCam;
-    ofImage img;
     bool show3DScene = false;
 
     //ofxGui gui;
