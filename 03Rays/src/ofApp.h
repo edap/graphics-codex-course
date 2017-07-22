@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
+//#include "ofxGui"
+#include "PinholeCamera.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,8 +24,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
+    void initImage(int width, int height);
+
     ofxAssimpModelLoader model;
-    ofLight	light;
+    //ofLight	light;
 
     // stores the info on the current file.
     string curFileInfo;
@@ -31,5 +35,11 @@ class ofApp : public ofBaseApp{
     //boolean to toggle help text
     bool bHelpText;
     ofEasyCam cam;
+    PinholeCamera myCam;
+    ofImage img;
+    bool show3DScene = false;
+
+    //ofxGui gui;
+    //ofxButton render;
 
 };
