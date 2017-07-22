@@ -19,7 +19,7 @@ void ofApp::setup(){
 }
 
 // C++ Ray Casting [_rn_rayCst] from http://graphicscodex.com
-void ofApp::render(const PinholeCamera& camera, shared_ptr<ofImage> image) const {
+void ofApp::render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const {
     const int width = int(image->getWidth());
     const int height = int(image->getHeight());
 
@@ -63,7 +63,6 @@ void ofApp::draw(){
         model.drawFaces();
         //light.disable();
         ofDrawAxis(100);
-        myCam.draw();
         cam.end();
     } else {
         image->draw(10,10, 160, 100);
