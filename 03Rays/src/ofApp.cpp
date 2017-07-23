@@ -3,8 +3,6 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     //addEventListener();
-    //gui.setup();
-    //gui.add("render", render);
     ofBackground(255,255,255);
     ofSetVerticalSync(true);
     ofEnableDepthTest();
@@ -12,11 +10,21 @@ void ofApp::setup(){
     model.loadModel("CornellBox-Original.obj", 20);
     model.setRotation(0, 180, 0, 0, 1);
     model.setPosition(0, -300, -460);
+    vector<string> options = {"160x100", "500x600",};
+    menu = new ofxDatGuiDropdown("Resolution", options);
+    menu->setPosition(ofGetWidth() - menu->getWidth(), 0);
+    menu->onDropdownEvent(this, &ofApp::onResolutionEvent);
 
     PinholeCamera camera;
     image = initImage(160, 100);
     render(camera, image);
 }
+
+void ofApp::onResolutionEvent(ofxDatGuiDropdownEvent e)
+{
+    cout << e.child << endl;
+}
+
 
 // C++ Ray Casting [_rn_rayCst] from http://graphicscodex.com
 void ofApp::render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const {
@@ -45,7 +53,7 @@ ofColor ofApp::L_i(const glm::vec3& X, const glm::vec3& wi) const{
     //const shared_ptr<Surfel>& s = findFirstIntersection(X, wi);
 
     //if (notNull(s)) {
-        return ofColor(255,255,255);
+        return ofColor(255,0,255);
     //} else {
         //return ofColor(0,0,0);
     //}
@@ -66,6 +74,9 @@ void ofApp::draw(){
         cam.end();
     } else {
         image->draw(10,10, 160, 100);
+        ofDisableDepthTest();
+        menu->draw();
+        ofEnableDepthTest();
         //image->draw(10,10, 160, 100);
     }
 
@@ -81,7 +92,7 @@ shared_ptr<ofImage> ofApp::initImage(int _width, int _height){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    menu->update();
 }
 
 //--------------------------------------------------------------
