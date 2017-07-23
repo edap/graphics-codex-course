@@ -32,24 +32,24 @@ void ofApp::render(const PinholeCamera& camera, shared_ptr<ofImage>& image) cons
             camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
 
             ofColor col= ofColor(12,12,255);
-            image->setColor(x, y, col);
+            image->setColor(x, y, L_i(P, w));
             //image->set(x, y, L_i(P, w));
         }
     }
     image->update();
 }
 
-//// Debugging implementation that computes white if there is any surface on this ray and black
-//Radiance3 App::L_i(const Point3& X, const Vector3& wi) {
-//    // Find the first intersection with the scene
-//    const shared_ptr<Surfel>& s = findFirstIntersection(X, wi);
-//
-//    if (notNull(s)) {
-//        return Radiance3::one();
-//    } else {
-//        return Radiance3::zero();
-//    }
-//}
+// Debugging implementation that computes white if there is any surface on this ray and black
+ofColor ofApp::L_i(const glm::vec3& X, const glm::vec3& wi) const{
+    // Find the first intersection with the scene
+    //const shared_ptr<Surfel>& s = findFirstIntersection(X, wi);
+
+    //if (notNull(s)) {
+        return ofColor(255,255,255);
+    //} else {
+        //return ofColor(0,0,0);
+    //}
+}
 
 
 

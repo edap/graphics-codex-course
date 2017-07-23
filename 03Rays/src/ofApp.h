@@ -4,6 +4,7 @@
 #include "ofxAssimpModelLoader.h"
 //#include "ofxGui"
 #include "PinholeCamera.h"
+#include "Surfel.h"
 
 class ofApp : public ofBaseApp{
 
@@ -27,6 +28,7 @@ class ofApp : public ofBaseApp{
     shared_ptr<ofImage> initImage(int width, int height);
     shared_ptr<ofImage> image;
     void render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
+    ofColor L_i(const glm::vec3& X, const glm::vec3& wi) const;
 
     ofxAssimpModelLoader model;
     //ofLight	light;
