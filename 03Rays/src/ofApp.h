@@ -5,6 +5,7 @@
 #include "PinholeCamera.h"
 #include "ofxDatGui.h"
 #include "Surfel.h"
+#include "RayCaster.h"
 
 class ofApp : public ofBaseApp{
 
@@ -29,21 +30,20 @@ public:
     void onRenderEvent(ofxDatGuiButtonEvent e);
     void onIndRaysEvent(ofxDatGuiSliderEvent e);
 
-    shared_ptr<ofImage> initImage(int width, int height);
 
+    void startRender();
     void render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
     ofColor L_i(const glm::vec3& X, const glm::vec3& wi) const;
+    shared_ptr<ofImage> initImage(int width, int height);
 
+    shared_ptr<ofImage> image;
     ofxDatGui* gui;
     ofxAssimpModelLoader model;
     //ofLight	light;
 
-    // stores the info on the current file.
-    string curFileInfo;
-    shared_ptr<ofImage> image;
 
-    //boolean to toggle help text
-    bool bHelpText;
+
+    //debug 3dScene
     ofEasyCam cam;
     bool show3DScene = false;
 

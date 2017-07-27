@@ -25,9 +25,8 @@ void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, glm::
                z_near * -(y / height - 0.5f) * side,
                z_near);
 
-    // The incoming direction is simply that from the origin to $P$
+    // The incoming direction is simply that from the origin to P
     glm::vec3 dir = P - centerOfProjection;
     w = glm::normalize(dir);
-    //w = P.direction();
 }
 

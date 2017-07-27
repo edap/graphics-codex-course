@@ -2,7 +2,6 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    //addEventListener();
     ofBackground(255,255,255);
     ofSetVerticalSync(true);
     ofEnableDepthTest();
@@ -15,7 +14,7 @@ void ofApp::setup(){
     // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
     gui->setAutoDraw(false);
-    gui->addTextInput("message", "Renderer");
+    gui->addTextInput("message", "Ray Casting");
     gui->addDropdown("Resolution", options);
     gui->addSlider("indirect rays per pixel", 0, 2048);
     gui->onDropdownEvent(this, &ofApp::onResolutionEvent);
@@ -27,22 +26,11 @@ void ofApp::setup(){
     render(camera, image);
 }
 
-void ofApp::onResolutionEvent(ofxDatGuiDropdownEvent e)
-{
-    cout << e.child << endl;
+void ofApp::startRender(){
+    PinholeCamera camera;
+    image = initImage(160, 100);
+    render(camera, image);
 }
-
-void ofApp::onRenderEvent(ofxDatGuiButtonEvent e)
-{
-    cout << e.target << endl;
-}
-
-void ofApp::onIndRaysEvent(ofxDatGuiSliderEvent e)
-{
-    cout << "onSliderEvent: " << e.target->getLabel() << " "; e.target->printValue();
-    if (e.target->is("datgui opacity")) gui->setOpacity(e.scale);
-}
-
 
 // C++ Ray Casting [_rn_rayCst] from http://graphicscodex.com
 void ofApp::render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const {
@@ -59,7 +47,6 @@ void ofApp::render(const PinholeCamera& camera, shared_ptr<ofImage>& image) cons
 
             ofColor col= ofColor(12,12,255);
             image->setColor(x, y, L_i(P, w));
-            //image->set(x, y, L_i(P, w));
         }
     }
     image->update();
@@ -106,6 +93,20 @@ shared_ptr<ofImage> ofApp::initImage(int _width, int _height){
     shared_ptr<ofImage> img = std::make_shared<ofImage>();
     img->allocate(_width, _height, OF_IMAGE_COLOR);
     return img;
+}
+
+void ofApp::onResolutionEvent(ofxDatGuiDropdownEvent e){
+    cout << e.child << endl;
+}
+
+void ofApp::onRenderEvent(ofxDatGuiButtonEvent e){
+    cout << e.target << endl;
+    startRender();
+}
+
+void ofApp::onIndRaysEvent(ofxDatGuiSliderEvent e){
+    cout << "onSliderEvent: " << e.target->getLabel() << " "; e.target->printValue();
+    if (e.target->is("datgui opacity")) gui->setOpacity(e.scale);
 }
 
 //--------------------------------------------------------------
