@@ -24,16 +24,17 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+
     void onResolutionEvent(ofxDatGuiDropdownEvent e);
+    void onRenderEvent(ofxDatGuiButtonEvent e);
+    void onIndRaysEvent(ofxDatGuiSliderEvent e);
 
     shared_ptr<ofImage> initImage(int width, int height);
 
     void render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
     ofColor L_i(const glm::vec3& X, const glm::vec3& wi) const;
 
-
-    ofxDatGuiDropdown* menu;
-
+    ofxDatGui* gui;
     ofxAssimpModelLoader model;
     //ofLight	light;
 

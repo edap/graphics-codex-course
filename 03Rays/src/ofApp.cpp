@@ -10,10 +10,17 @@ void ofApp::setup(){
     model.loadModel("CornellBox-Original.obj", 20);
     model.setRotation(0, 180, 0, 0, 1);
     model.setPosition(0, -300, -460);
-    vector<string> options = {"160x100", "500x600",};
-    menu = new ofxDatGuiDropdown("Resolution", options);
-    menu->setPosition(ofGetWidth() - menu->getWidth(), 0);
-    menu->onDropdownEvent(this, &ofApp::onResolutionEvent);
+    vector<string> options = {"1x1", "320×200", "640×400",};
+
+    // instantiate and position the gui //
+    gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
+    gui->setAutoDraw(false);
+    gui->addTextInput("message", "Renderer");
+    gui->addDropdown("Resolution", options);
+    gui->addSlider("indirect rays per pixel", 0, 2048);
+    gui->onDropdownEvent(this, &ofApp::onResolutionEvent);
+    gui->onButtonEvent(this, &ofApp::onRenderEvent);
+    gui->onSliderEvent(this, &ofApp::onIndRaysEvent);
 
     PinholeCamera camera;
     image = initImage(160, 100);
@@ -23,6 +30,17 @@ void ofApp::setup(){
 void ofApp::onResolutionEvent(ofxDatGuiDropdownEvent e)
 {
     cout << e.child << endl;
+}
+
+void ofApp::onRenderEvent(ofxDatGuiButtonEvent e)
+{
+    cout << e.target << endl;
+}
+
+void ofApp::onIndRaysEvent(ofxDatGuiSliderEvent e)
+{
+    cout << "onSliderEvent: " << e.target->getLabel() << " "; e.target->printValue();
+    if (e.target->is("datgui opacity")) gui->setOpacity(e.scale);
 }
 
 
@@ -75,7 +93,7 @@ void ofApp::draw(){
     } else {
         image->draw(10,10, 160, 100);
         ofDisableDepthTest();
-        menu->draw();
+        gui->draw();
         ofEnableDepthTest();
         //image->draw(10,10, 160, 100);
     }
@@ -92,7 +110,7 @@ shared_ptr<ofImage> ofApp::initImage(int _width, int _height){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    menu->update();
+    gui->update();
 }
 
 //--------------------------------------------------------------
