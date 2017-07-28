@@ -21,13 +21,20 @@ void ofApp::setup(){
     gui->onButtonEvent(this, &ofApp::onRenderEvent);
     gui->onSliderEvent(this, &ofApp::onIndRaysEvent);
 
+    //this box and this material are just for debugging purposes
+    material.setEmissiveColor(ofFloatColor::red);
+    box.set(12);
+    box.move(0, 0, -20);
+    
     startRender();
 }
 
 void ofApp::startRender(){
+    auto f = box.getMesh().getUniqueFaces();
     PinholeCamera camera;
-    image = initImage(160, 100);
-    RayCaster rayCaster;
+    //image = initImage(160, 100);
+    image = initImage(1, 1);
+    RayCaster rayCaster = RayCaster(box.getMesh());
     rayCaster.traceImage(camera, image);
 }
 
@@ -37,7 +44,10 @@ void ofApp::draw(){
         cam.begin();
         //light.enable();
         //light.draw();
-        model.drawFaces();
+        //model.drawFaces();
+        material.begin();
+        box.draw();
+        material.end();
         //light.disable();
         ofDrawAxis(100);
         cam.end();

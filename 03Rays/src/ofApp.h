@@ -36,12 +36,14 @@ public:
 
     shared_ptr<ofImage> image;
     ofxDatGui* gui;
+    ofBoxPrimitive box; //debugging box
     ofxAssimpModelLoader model;
     //ofLight	light;
 
 
 
     //debug 3dScene
+    ofMaterial material;
     ofEasyCam cam;
     bool show3DScene = false;
 

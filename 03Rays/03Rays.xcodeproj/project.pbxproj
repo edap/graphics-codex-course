@@ -11,6 +11,7 @@
 		3B8120368B4FCCD80883BAF3 /* ofxAssimpAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36068D6C1D6D412786A5C4C1 /* ofxAssimpAnimation.cpp */; };
 		483FA4F6D5FA6422C559B1F5 /* ofxAssimpMeshHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F67FE68E327BEFBD4B777571 /* ofxAssimpMeshHelper.cpp */; };
 		6FA0BF5F1F2A267600B8BFF6 /* RayCaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FA0BF5D1F2A267600B8BFF6 /* RayCaster.cpp */; };
+		6FA0BF671F2B690800B8BFF6 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FA0BF651F2B690800B8BFF6 /* Ray.cpp */; };
 		8DED5056525646FA71980866 /* ofxAssimpModelLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDE55D82BD962DAC0E94B708 /* ofxAssimpModelLoader.cpp */; };
 		9CF4130A7E6DA19A3DC42B9A /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C954E0E8B7DB9D6983309883 /* ofxSmartFont.cpp */; };
 		B73F74B7787FF76CFD8C5684 /* PinholeCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 470201EF5CB21F1D285E5767 /* PinholeCamera.cpp */; };
@@ -83,6 +84,8 @@
 		6FA0BF5D1F2A267600B8BFF6 /* RayCaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RayCaster.cpp; sourceTree = "<group>"; };
 		6FA0BF5E1F2A267600B8BFF6 /* RayCaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RayCaster.h; sourceTree = "<group>"; };
 		6FA0BF601F2A369000B8BFF6 /* Sphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		6FA0BF651F2B690800B8BFF6 /* Ray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
+		6FA0BF661F2B690800B8BFF6 /* Ray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ray.h; sourceTree = "<group>"; };
 		744031A3E8F8DAF9FE6F3EA8 /* ofxDatGuiGroups.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiGroups.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiGroups.h; sourceTree = SOURCE_ROOT; };
 		787315438BF1DD00C81DF413 /* ofxDatGuiLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiLabel.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiLabel.h; sourceTree = SOURCE_ROOT; };
 		7920005E4069FBD68DF30F56 /* config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = config.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/config.h; sourceTree = SOURCE_ROOT; };
@@ -358,6 +361,8 @@
 				6FA0BF5D1F2A267600B8BFF6 /* RayCaster.cpp */,
 				6FA0BF5E1F2A267600B8BFF6 /* RayCaster.h */,
 				6FA0BF601F2A369000B8BFF6 /* Sphere.h */,
+				6FA0BF651F2B690800B8BFF6 /* Ray.cpp */,
+				6FA0BF661F2B690800B8BFF6 /* Ray.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -505,6 +510,7 @@
 				D3C1C48E59CAA2D68C0DD477 /* ofxDatGuiComponent.cpp in Sources */,
 				9CF4130A7E6DA19A3DC42B9A /* ofxSmartFont.cpp in Sources */,
 				C9466C434D1CF8AB968D298D /* ofxDatGui.cpp in Sources */,
+				6FA0BF671F2B690800B8BFF6 /* Ray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
