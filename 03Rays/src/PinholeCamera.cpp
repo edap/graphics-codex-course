@@ -12,7 +12,6 @@ void PinholeCamera::draw(){
 //TODO
 //The camera must convert a pixel position in the image to a point on the near clipping plane,
 //and then to the ray that passes through that point from the center of projection.
-// quando parla di image, si riferisce all'image plane
 
 // C++ A Camera Model [_rn_camera] from http://graphicscodex.com
 /* x, y, width, and height in pixels; P in meters */

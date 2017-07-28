@@ -9,7 +9,7 @@ void ofApp::setup(){
     model.loadModel("CornellBox-Original.obj", 20);
     model.setRotation(0, 180, 0, 0, 1);
     model.setPosition(0, -300, -460);
-    vector<string> options = {"1x1", "320×200", "640×400",};
+    vector<string> options = {"1x1", "320x200", "640x400",};
 
     // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
@@ -21,51 +21,15 @@ void ofApp::setup(){
     gui->onButtonEvent(this, &ofApp::onRenderEvent);
     gui->onSliderEvent(this, &ofApp::onIndRaysEvent);
 
-    PinholeCamera camera;
-    image = initImage(160, 100);
-    render(camera, image);
+    startRender();
 }
 
 void ofApp::startRender(){
     PinholeCamera camera;
     image = initImage(160, 100);
-    render(camera, image);
+    RayCaster rayCaster;
+    rayCaster.traceImage(camera, image);
 }
-
-// C++ Ray Casting [_rn_rayCst] from http://graphicscodex.com
-void ofApp::render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const {
-    const int width = int(image->getWidth());
-    const int height = int(image->getHeight());
-
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            glm::vec3 P;
-            glm::vec3 w;
-
-            // Find the ray through (x, y) and the center of projection
-            camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
-
-            ofColor col= ofColor(12,12,255);
-            image->setColor(x, y, L_i(P, w));
-        }
-    }
-    image->update();
-}
-
-// Debugging implementation that computes white if there is any surface on this ray and black
-ofColor ofApp::L_i(const glm::vec3& X, const glm::vec3& wi) const{
-    // Find the first intersection with the scene
-    //const shared_ptr<Surfel>& s = findFirstIntersection(X, wi);
-
-    //if (notNull(s)) {
-        return ofColor(255,0,255);
-    //} else {
-        //return ofColor(0,0,0);
-    //}
-}
-
-
-
 
 //--------------------------------------------------------------
 void ofApp::draw(){
@@ -78,6 +42,7 @@ void ofApp::draw(){
         ofDrawAxis(100);
         cam.end();
     } else {
+
         image->draw(10,10, 160, 100);
         ofDisableDepthTest();
         gui->draw();

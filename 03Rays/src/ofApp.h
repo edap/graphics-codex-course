@@ -32,8 +32,6 @@ public:
 
 
     void startRender();
-    void render(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
-    ofColor L_i(const glm::vec3& X, const glm::vec3& wi) const;
     shared_ptr<ofImage> initImage(int width, int height);
 
     shared_ptr<ofImage> image;
