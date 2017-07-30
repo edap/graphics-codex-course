@@ -9,6 +9,6 @@ public:
     void getPrimaryRay(float x, float y, int width, int height, glm::vec3& P, glm::vec3& w) const;
 
 protected:
-    float   verticalFieldOfView; //angle y0
+    float verticalFieldOfView; //angle y0
     float z_near;
 };

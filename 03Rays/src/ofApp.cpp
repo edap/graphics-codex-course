@@ -23,18 +23,20 @@ void ofApp::setup(){
 
     //this box and this material are just for debugging purposes
     material.setEmissiveColor(ofFloatColor::red);
-    box.set(12);
-    box.move(0, 0, -20);
+    int side = 12;
+    box.set(side);
+    box.move(0, 0, -34);
     
     startRender();
 }
 
 void ofApp::startRender(){
     auto f = box.getMesh().getUniqueFaces();
+
     PinholeCamera camera;
     //image = initImage(160, 100);
-    image = initImage(1, 1);
-    RayCaster rayCaster = RayCaster(box.getMesh());
+    image = initImage(160, 100);
+    RayCaster rayCaster = RayCaster(box.getMesh(), box.getGlobalTransformMatrix());
     rayCaster.traceImage(camera, image);
 }
 

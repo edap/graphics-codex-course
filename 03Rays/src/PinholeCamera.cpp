@@ -3,13 +3,13 @@
 PinholeCamera::PinholeCamera(){
     centerOfProjection = glm::vec3(0.0,0.0,0.0);
     z_near =  -1.0;
+    verticalFieldOfView = PI/3;
 }
 
 void PinholeCamera::draw(){
     ofDrawSphere(centerOfProjection.x, centerOfProjection.y, centerOfProjection.z, 10);
 }
 
-//TODO
 //The camera must convert a pixel position in the image to a point on the near clipping plane,
 //and then to the ray that passes through that point from the center of projection.
 
