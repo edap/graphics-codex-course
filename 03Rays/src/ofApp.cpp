@@ -1,5 +1,7 @@
 #include "ofApp.h"
 
+
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(255,255,255);
@@ -9,7 +11,9 @@ void ofApp::setup(){
     model.loadModel("CornellBox-Original.obj", 20);
     model.setRotation(0, 180, 0, 0, 1);
     model.setPosition(0, -300, -460);
-    vector<string> options = {"1x1", "320x200", "640x400",};
+    vector<string> options = {"1x1", "320x200", "640x400","800x600"};
+    availableResolution = prepareResolutions();
+
 
     // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
@@ -31,12 +35,10 @@ void ofApp::setup(){
     //startRender();
 }
 
-void ofApp::startRender(){
+void ofApp::startRender(guiOptions options){
     auto f = box.getMesh().getUniqueFaces();
-
     PinholeCamera camera;
-    //image = initImage(160, 100);
-
+    image = initImage(options.resolution.width, options.resolution.height);
     RayCaster rayCaster = RayCaster(box.getMesh(), box.getGlobalTransformMatrix());
     rayCaster.traceImage(camera, image);
 }
@@ -74,17 +76,18 @@ shared_ptr<ofImage> ofApp::initImage(int _width, int _height){
 }
 
 void ofApp::onResolutionEvent(ofxDatGuiDropdownEvent e){
-    cout << e.child << endl;
+    options.resolution = availableResolution[int(e.child)];
 }
 
 void ofApp::onRenderEvent(ofxDatGuiButtonEvent e){
     cout << e.target << endl;
-    startRender();
+    startRender(options);
 }
 
 void ofApp::onIndRaysEvent(ofxDatGuiSliderEvent e){
-    cout << "onSliderEvent: " << e.target->getLabel() << " "; e.target->printValue();
+    options.nIndirectRays = e.target->getValue();
     if (e.target->is("datgui opacity")) gui->setOpacity(e.scale);
+    
 }
 
 //--------------------------------------------------------------
@@ -146,3 +149,16 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
 }
+
+map<int, imgDimension> ofApp::prepareResolutions(){
+    map<int, imgDimension> avl;
+    imgDimension small; small.width = 1; small.height = 1;
+    imgDimension medium; medium.width = 320; medium.height = 200;
+    imgDimension large; large.width = 640; large.height = 400;
+    imgDimension big; big.width = 800; big.height = 600;
+    avl[0] = small;
+    avl[1] = medium;
+    avl[2] = big;
+    avl[3] = large;
+    return avl;
+};

@@ -7,6 +7,17 @@
 #include "Surfel.h"
 #include "RayCaster.h"
 
+
+struct imgDimension{
+    int width;
+    int height;
+};
+
+struct guiOptions{
+    imgDimension resolution;
+    int nIndirectRays;
+};
+
 class ofApp : public ofBaseApp{
 
 public:
@@ -31,20 +42,25 @@ public:
     void onIndRaysEvent(ofxDatGuiSliderEvent e);
 
 
-    void startRender();
+    void startRender(guiOptions opt);
     shared_ptr<ofImage> initImage(int width, int height);
 
     shared_ptr<ofImage> image;
     ofxDatGui* gui;
     ofBoxPrimitive box; //debugging box
     ofxAssimpModelLoader model;
+
     //ofLight	light;
 
 
-
+    guiOptions options;
     //debug 3dScene
     ofMaterial material;
     ofEasyCam cam;
     bool show3DScene = false;
+
+    //gui helpers
+    map<int, imgDimension> availableResolution;
+    map<int, imgDimension> prepareResolutions();
 
 };
