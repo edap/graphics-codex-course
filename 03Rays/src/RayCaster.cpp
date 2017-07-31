@@ -39,11 +39,12 @@ ofColor RayCaster::L_i(const glm::vec3& X, const glm::vec3& wi) const{
     bool found = false;
     for (ofMeshFace face : faces) {
         glm::vec3 baricenter;
-        found = glm::intersectRayTriangle(X, wi,
-                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(0), 1.f)),
-                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
-                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
-                                          baricenter);
+        found = glm::intersectRayTriangle(
+                    X, wi,
+                    glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(0), 1.f)),
+                    glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
+                    glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
+                    baricenter);
         if(found) {
             break;
         }

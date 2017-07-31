@@ -17,6 +17,7 @@ void ofApp::setup(){
     gui->addTextInput("message", "Ray Casting");
     gui->addDropdown("Resolution", options);
     gui->addSlider("indirect rays per pixel", 0, 2048);
+    gui->addButton("start render");
     gui->onDropdownEvent(this, &ofApp::onResolutionEvent);
     gui->onButtonEvent(this, &ofApp::onRenderEvent);
     gui->onSliderEvent(this, &ofApp::onIndRaysEvent);
@@ -26,8 +27,8 @@ void ofApp::setup(){
     int side = 12;
     box.set(side);
     box.move(0, 0, -34);
-    
-    startRender();
+    image = initImage(160, 100);
+    //startRender();
 }
 
 void ofApp::startRender(){
@@ -35,7 +36,7 @@ void ofApp::startRender(){
 
     PinholeCamera camera;
     //image = initImage(160, 100);
-    image = initImage(160, 100);
+
     RayCaster rayCaster = RayCaster(box.getMesh(), box.getGlobalTransformMatrix());
     rayCaster.traceImage(camera, image);
 }
