@@ -7,7 +7,6 @@
 #include "Surfel.h"
 #include "RayCaster.h"
 
-
 struct imgDimension{
     int width;
     int height;

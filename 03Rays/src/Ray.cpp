@@ -1,9 +1,7 @@
-//
-//  Ray.cpp
-//  03Rays
-//
-//  Created by DavidePrati on 28/07/17.
-//
-//
-
+#pragma once
 #include "Ray.h"
+
+Ray::Ray(glm::vec3 _origin, glm::vec3 _direction){
+    origin = _origin;
+    direction = _direction;
+};

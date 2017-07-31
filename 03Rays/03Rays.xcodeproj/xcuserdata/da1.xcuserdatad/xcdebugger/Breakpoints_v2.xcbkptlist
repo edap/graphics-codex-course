@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
             endingLineNumber = "48"
-            landmarkName = "RayCaster::L_i(const glm::vec3&amp; X, const glm::vec3&amp; wi)"
+            landmarkName = "RayCaster::L_i(const Ray&amp; ray)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
             endingLineNumber = "49"
-            landmarkName = "RayCaster::L_i(const glm::vec3&amp; X, const glm::vec3&amp; wi)"
+            landmarkName = "RayCaster::L_i(const Ray&amp; ray)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -159,7 +159,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "36"
             endingLineNumber = "36"
-            landmarkName = "RayCaster::L_i(const glm::vec3&amp; X, const glm::vec3&amp; wi)"
+            landmarkName = "RayCaster::L_i(const Ray&amp; ray)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

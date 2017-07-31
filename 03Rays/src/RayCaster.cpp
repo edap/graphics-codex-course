@@ -17,7 +17,7 @@ void RayCaster::traceImage(const PinholeCamera& camera, shared_ptr<ofImage>& ima
             glm::vec3 w;
             // Find the ray through (x, y) and the center of projection
             camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
-            image->setColor(x, y, L_i(P, w));
+            image->setColor(x, y, L_i(Ray(P, w)));
         }
     }
     image->update();
@@ -30,7 +30,7 @@ void RayCaster::traceImage(const PinholeCamera& camera, shared_ptr<ofImage>& ima
 from the book: The first one is easy: iterate over the lights and multiply three values: the biradiance from the light, the value of the scattering distribution function, and the cosine of the angle of incidence (a dot product).
 */
 
-ofColor RayCaster::L_i(const glm::vec3& X, const glm::vec3& wi) const{
+ofColor RayCaster::L_i(const Ray& ray) const{
     // for all the triangles in a mesh
     // Find the first intersection (and the closest!) with the scene
     //const shared_ptr<Surfel>& s = findFirstIntersection(X, wi); TODO
@@ -40,7 +40,7 @@ ofColor RayCaster::L_i(const glm::vec3& X, const glm::vec3& wi) const{
     for (ofMeshFace face : faces) {
         glm::vec3 baricenter;
         found = glm::intersectRayTriangle(
-                    X, wi,
+                    ray.origin, ray.direction,
                     glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(0), 1.f)),
                     glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
                     glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
