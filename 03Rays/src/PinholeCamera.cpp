@@ -1,5 +1,7 @@
 #include "PinholeCamera.h"
 
+//TODO, provide an option struct to the constructor
+
 PinholeCamera::PinholeCamera(){
     centerOfProjection = glm::vec3(0.0,0.0,0.0);
     z_near =  -1.0;

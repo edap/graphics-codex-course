@@ -4,7 +4,7 @@
 class PinholeCamera {
 public:
     PinholeCamera();
-    void draw();
+    void draw(); //just for debugging purposes
     glm::vec3 centerOfProjection;
     void getPrimaryRay(float x, float y, int width, int height, glm::vec3& P, glm::vec3& w) const;
 
