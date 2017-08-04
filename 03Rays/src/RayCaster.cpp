@@ -1,6 +1,6 @@
 #include "RayCaster.h"
 
-RayCaster::RayCaster(ofMesh _mesh, glm::mat4 _globalTransfMatrix){
+RayCaster::RayCaster(const ofMesh& _mesh, glm::mat4 _globalTransfMatrix){
     mesh = _mesh;
     globalTransfMatrix = _globalTransfMatrix;
 };
@@ -33,22 +33,8 @@ from the book: The first one is easy: iterate over the lights and multiply three
 ofColor RayCaster::L_i(const Ray& ray) const{
     // for all the triangles in a mesh
     // Find the first intersection (and the closest!) with the scene
-    //const shared_ptr<Surfel>& s = findFirstIntersection(X, wi); TODO
 
-    vector<ofMeshFace> faces = this->mesh.getUniqueFaces();
-    bool found = false;
-    for (ofMeshFace face : faces) {
-        glm::vec3 baricenter;
-        found = glm::intersectRayTriangle(
-                    ray.origin, ray.direction,
-                    glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(0), 1.f)),
-                    glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
-                    glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
-                    baricenter);
-        if(found) {
-            break;
-        }
-    }
+    bool found = findFirstIntersection(ray, this->mesh);
 
     //if (notNull(s)) TODO, if a ray is found, create a Surfel
     if (found) {
@@ -57,6 +43,28 @@ ofColor RayCaster::L_i(const Ray& ray) const{
        return ofColor(0,0,0);
     }
 }
+
+//TODO, questo metodo invece che un bool dovra' ritornare un Surfel.
+// Sei al punto b del paragrafo "Measure Incident Light at each Pixel." in "A model of Light"
+// const shared_ptr<Surfel>& s = findFirstIntersection(const Ray& ray, const ofMesh& mesh); TODO
+bool RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh) const{
+    vector<ofMeshFace> faces = mesh.getUniqueFaces();
+    bool found = false;
+    for (ofMeshFace face : faces) {
+        glm::vec3 baricenter;
+        found = glm::intersectRayTriangle(
+                                          ray.origin, ray.direction,
+                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(0), 1.f)),
+                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
+                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
+                                          baricenter);
+        if(found) {
+            break;
+        }
+    }
+    return found;
+};
+
 
 /* It find the intersection between a ray (with origin P and direction w) and the scene.
  If ray P + tw hits triangle V[0], V[1], V[2], then the function returns true, stores the barycentric coordinates in b[],

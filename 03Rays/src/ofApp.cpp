@@ -11,6 +11,7 @@ void ofApp::setup(){
     model.loadModel("CornellBox-Original.obj", 20);
     model.setRotation(0, 180, 0, 0, 1);
     model.setPosition(0, -300, -460);
+
     vector<string> options = {"1x1", "320x200", "640x400","800x600"};
     availableResolution = prepareResolutions();
 
@@ -36,10 +37,13 @@ void ofApp::setup(){
 }
 
 void ofApp::startRender(guiOptions options){
-    auto f = box.getMesh().getUniqueFaces();
     PinholeCamera camera;
     image = initImage(options.resolution.width, options.resolution.height);
-    RayCaster rayCaster = RayCaster(box.getMesh(), box.getGlobalTransformMatrix());
+    const ofMesh mesh = box.getMesh();
+    RayCaster rayCaster = RayCaster(mesh, box.getGlobalTransformMatrix());
+
+    // to convert vertices to word space should not be a task that belongs to the
+    // ray caster
     rayCaster.traceImage(camera, image);
 }
 
