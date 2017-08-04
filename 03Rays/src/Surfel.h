@@ -4,7 +4,8 @@
 class Surfel {
     public:
     Surfel();
-
-    glm::vec3 normal;
-    float light;
+    const float emittedRadiance(glm::vec3 wo);
+    glm::vec3 shadingNormal;
+    glm::vec3 position;
+    //float light;
 };
