@@ -34,7 +34,7 @@ ofColor RayCaster::L_i(const Ray& ray) const{
     // for all the triangles in a mesh
     // Find the first intersection (and the closest!) with the scene
 
-    bool found = findFirstIntersection(ray, this->mesh);
+    const shared_ptr<Surfel>& found = findFirstIntersection(ray, this->mesh);
 
     //if (notNull(s)) TODO, if a ray is found, create a Surfel
     if (found) {
@@ -47,7 +47,7 @@ ofColor RayCaster::L_i(const Ray& ray) const{
 //TODO, questo metodo invece che un bool dovra' ritornare un Surfel.
 // Sei al punto b del paragrafo "Measure Incident Light at each Pixel." in "A model of Light"
 // const shared_ptr<Surfel>& s = findFirstIntersection(const Ray& ray, const ofMesh& mesh); TODO
-bool RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh) const{
+shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh) const{
     vector<ofMeshFace> faces = mesh.getUniqueFaces();
     bool found = false;
     for (ofMeshFace face : faces) {
@@ -58,11 +58,13 @@ bool RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh) const{
                                           glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
                                           glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
                                           baricenter);
-        if(found) {
+        if (found) {
+            glm::vec3 faceNormal = face.getFaceNormal();
+            return shared_ptr<Surfel>(new Surfel());
             break;
         }
     }
-    return found;
+    return nullptr;
 };
 
 

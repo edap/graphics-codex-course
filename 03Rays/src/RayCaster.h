@@ -18,7 +18,7 @@ public:
     //iterates overall pixels calling traceRay
     void traceImage(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
 protected:
-    bool findFirstIntersection(const Ray& ray, const ofMesh& mesh) const;
+    shared_ptr<Surfel> findFirstIntersection(const Ray& ray, const ofMesh& mesh) const;
     // 
     ofColor L_i(const Ray& ray) const;
     // Find the first intersection with the scene
