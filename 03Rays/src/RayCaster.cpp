@@ -44,9 +44,7 @@ ofColor RayCaster::L_i(const Ray& ray) const{
     }
 }
 
-//TODO, questo metodo invece che un bool dovra' ritornare un Surfel.
 // Sei al punto b del paragrafo "Measure Incident Light at each Pixel." in "A model of Light"
-// const shared_ptr<Surfel>& s = findFirstIntersection(const Ray& ray, const ofMesh& mesh); TODO
 shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh) const{
     vector<ofMeshFace> faces = mesh.getUniqueFaces();
     bool found = false;
