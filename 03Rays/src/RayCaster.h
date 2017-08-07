@@ -28,5 +28,4 @@ protected:
     ofMesh mesh;
     glm::mat4 globalTransfMatrix;
 
-
 };

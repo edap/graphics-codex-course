@@ -1,7 +1,8 @@
 #include "Surfel.h"
 
-Surfel::Surfel(glm::vec3 _faceNormal){
-    shadingNormal = _faceNormal;
+Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3 _position){
+    geometricNormal = _faceNormal;
+    position = _position;
 }
 
 float Surfel::emittedRadiance(glm::vec3 wo) const {

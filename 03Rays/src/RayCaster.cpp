@@ -58,7 +58,7 @@ shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh
                                           baricenter);
         if (found) {
             glm::vec3 faceNormal = face.getFaceNormal();
-            return shared_ptr<Surfel>(new Surfel());
+            return shared_ptr<Surfel>(new Surfel(faceNormal, baricenter));
             break;
         }
     }
