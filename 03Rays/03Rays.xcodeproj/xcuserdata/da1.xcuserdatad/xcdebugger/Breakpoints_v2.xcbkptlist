@@ -58,60 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "523917885.506257"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "RayCaster::rayTriangleIntersect(const glm::vec3&amp; P, const glm::vec3&amp; w, const vector&lt;glm::vec3&gt; V, float b[3], float&amp; t)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/RayCaster.cpp"
             timestampString = "523917607.886277"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
             endingLineNumber = "20"
             landmarkName = "RayCaster::traceImage(const PinholeCamera&amp; camera, shared_ptr&lt;ofImage&gt;&amp; image)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/RayCaster.cpp"
-            timestampString = "523917885.506257"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "RayCaster::rayTriangleIntersect(const glm::vec3&amp; P, const glm::vec3&amp; w, const vector&lt;glm::vec3&gt; V, float b[3], float&amp; t)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/RayCaster.cpp"
-            timestampString = "523917885.506257"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "RayCaster::rayTriangleIntersect(const glm::vec3&amp; P, const glm::vec3&amp; w, const vector&lt;glm::vec3&gt; V, float b[3], float&amp; t)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

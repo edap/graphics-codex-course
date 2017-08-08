@@ -120,31 +120,4 @@ glm::vec3 RayCaster::getPointOnTriangle(const Ray& _ray, const glm::vec3& _baryP
 /* It find the intersection between a ray (with origin P and direction w) and the scene.
  If ray P + tw hits triangle V[0], V[1], V[2], then the function returns true, stores the barycentric coordinates in b[],
  and stores the distance to the intersection in t. Otherwise returns false and the other output parameters are undefined.*/
-bool RayCaster::rayTriangleIntersect(const glm::vec3& P, const glm::vec3& w, const vector<glm::vec3> V, float b[3], float& t) const{
-    // Edge vectors
-    double eps = 0.01; //TODO, test this value
-    const glm::vec3& e_1 = V[1] - V[0];
-    const glm::vec3& e_2 = V[2] - V[0];
 
-    // Face normal
-    const glm::vec3& n = glm::normalize(glm::cross(e_1, e_2));
-
-    const glm::vec3& q = glm::cross(w, e_2);
-    const float a = glm::dot(e_1, q);
-    //cout << a << endl;
-    // Backfacing / nearly parallel, or close to the limit of precision?
-    if ((glm::dot(n, w) >= 0) || (abs(a) <= eps)) return false;
-
-    const glm::vec3& s = (P - V[0]) / a;
-    const glm::vec3& r = glm::cross(s, e_1);
-
-    b[0] = glm::dot(s, q);
-    b[1] = glm::dot(r, w);
-    b[2] = 1.0f - b[0] - b[1];
-
-    // Intersected outside triangle?
-    if ((b[0] < 0.0f) || (b[1] < 0.0f) || (b[2] < 0.0f)) return false;
-
-    t = glm::dot(e_2, r);
-    return (t >= 0.0f);
-}
