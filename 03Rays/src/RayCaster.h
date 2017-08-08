@@ -23,8 +23,8 @@ protected:
     ofColor L_i(const Ray& ray) const;
     // Find the first intersection with the scene
     bool rayTriangleIntersect(const glm::vec3& P, const glm::vec3& w, const vector<glm::vec3> v, float baricenter[3], float& t) const;
-    //const shared_ptr<Surfel> findFirstIntersection(glm::vec3 X, glm::vec3 wi);
 
+    glm::vec3 getPointOnTriangle(const Ray& _ray, const glm::vec3& _baryPosition) const;
     ofMesh mesh;
     glm::mat4 globalTransfMatrix;
 

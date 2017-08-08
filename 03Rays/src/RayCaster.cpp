@@ -38,9 +38,10 @@ ofColor RayCaster::L_i(const Ray& ray) const{
 
     //if (notNull(s)) TODO, if a ray is found, create a Surfel
     if (found) {
-       return ofColor(255,255,255);
+        return ofColor(255,255,255);
+        //return L_o(found, -wi);
     } else {
-       return ofColor(0,0,0);
+        return ofColor(0,0,0);
     }
 }
 
@@ -58,13 +59,35 @@ shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh
                                           baricenter);
         if (found) {
             glm::vec3 faceNormal = face.getFaceNormal();
-            return shared_ptr<Surfel>(new Surfel(faceNormal, ray.direction, baricenter));
+            glm::vec3 position = getPointOnTriangle(ray, baricenter);
+            return shared_ptr<Surfel>(new Surfel(faceNormal, ray.direction, position));
             break;
         }
     }
     return nullptr;
 };
 
+/*
+ This method takes as argument a ray and the baricentric coordinates and returns
+ the exact point on the triangle where the intersection happened.
+ The variable values that are stored in the baryPosition vector need to be
+ explained, because there is no documentation in the glm website for the
+ glm::intersectRayTriangle method, but just in this github issue 
+ https://github.com/g-truc/glm/issues/6
+
+ the baryPosition output uses barycentric coordinates for the x and y components.
+ The z component is the scalar factor for ray.
+
+ That is,
+ 1.0 - baryPosition.x - baryPosition.y = actual z barycentric coordinate
+
+ if you compute the point inside the triangle that corresponds to those barycentric coordinates, you'll find the exact same answer as if you did:
+ origin + direction * baryPosition.z
+*/
+
+glm::vec3 RayCaster::getPointOnTriangle(const Ray& _ray, const glm::vec3& _baryPosition) const {
+    return _ray.origin + (_ray.direction * _baryPosition.z);
+};
 
 /* It find the intersection between a ray (with origin P and direction w) and the scene.
  If ray P + tw hits triangle V[0], V[1], V[2], then the function returns true, stores the barycentric coordinates in b[],

@@ -16,7 +16,7 @@ private:
     //The normal to the patch for shading purposes, i.e., after normal mapping.
     //e.g., the interpolated vertex normal or normal-mapped normal.
     //Always a unit vector.
-    glm::vec3 shadingNormal;
+    glm::vec3 shadingNormal; // this needs to be calculated
 
     bool backface = false;
 
