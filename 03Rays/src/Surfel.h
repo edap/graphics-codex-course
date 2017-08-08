@@ -5,7 +5,7 @@
 
 class Surfel {
 public:
-    Surfel(const glm::vec3& _faceNormal, const glm::vec3 position);
+    Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 position);
     virtual ~Surfel() {};
 private:
     float emittedRadiance(glm::vec3 wo) const;
@@ -17,5 +17,7 @@ private:
     //e.g., the interpolated vertex normal or normal-mapped normal.
     //Always a unit vector.
     glm::vec3 shadingNormal;
+
+    bool backface = false;
 
 };
