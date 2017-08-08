@@ -12,6 +12,12 @@ void ofApp::setup(){
     model.setRotation(0, 180, 0, 0, 1);
     model.setPosition(0, -300, -460);
 
+    ofLight light;
+    light.setPointLight();
+    //light.setPosition(0, 300, -460); //light position in the cornell box
+    light.setPosition(-10, 10, -10);
+    lights.push_back(light);
+
     vector<string> options = {"1x1", "320x200", "640x400","800x600"};
     availableResolution = prepareResolutions();
 
@@ -40,7 +46,7 @@ void ofApp::startRender(guiOptions options){
     PinholeCamera camera;
     image = initImage(options.resolution.width, options.resolution.height);
     const ofMesh mesh = box.getMesh();
-    RayCaster rayCaster = RayCaster(mesh, box.getGlobalTransformMatrix());
+    RayCaster rayCaster = RayCaster(mesh, box.getGlobalTransformMatrix(), lights);
 
     // to convert vertices to word space should not be a task that belongs to the
     // ray caster
@@ -49,20 +55,26 @@ void ofApp::startRender(guiOptions options){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    bool drawBox = false;
     if (show3DScene) {
         cam.begin();
         //light.enable();
-        //light.draw();
-        //model.drawFaces();
-        material.begin();
-        box.draw();
-        material.end();
+        for(auto l:lights) {
+            l.draw();
+        }
+        if (drawBox) {
+            material.begin();
+            box.draw();
+            material.end();
+        } else{
+            model.drawFaces();
+        };
         //light.disable();
         ofDrawAxis(100);
         cam.end();
     } else {
 
-        image->draw(10,10, 160, 100);
+        image->draw(10,10, 800, 600);
         ofDisableDepthTest();
         gui->draw();
         ofEnableDepthTest();

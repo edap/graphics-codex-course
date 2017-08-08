@@ -1,8 +1,9 @@
 #include "RayCaster.h"
 
-RayCaster::RayCaster(const ofMesh& _mesh, glm::mat4 _globalTransfMatrix){
+RayCaster::RayCaster(const ofMesh& _mesh, glm::mat4 _globalTransfMatrix, vector<ofLight> _lights){
     mesh = _mesh;
     globalTransfMatrix = _globalTransfMatrix;
+    lights = _lights;
 };
 
 // C++ Ray Casting implementation following http://graphicscodex.com
@@ -34,18 +35,45 @@ ofColor RayCaster::L_i(const Ray& ray) const{
     // for all the triangles in a mesh
     // Find the first intersection (and the closest!) with the scene
 
-    const shared_ptr<Surfel>& found = findFirstIntersection(ray, this->mesh);
+    const shared_ptr<Surfel>& surfelY = findFirstIntersection(ray, this->mesh);
 
     //if (notNull(s)) TODO, if a ray is found, create a Surfel
-    if (found) {
-        return ofColor(255,255,255);
-        //return L_o(found, -wi);
+    if (surfelY) {
+        return L_0(surfelY, -ray.direction);
     } else {
         return ofColor(0,0,0);
     }
 }
 
-// Sei al punto b del paragrafo "Measure Incident Light at each Pixel." in "A model of Light"
+// Compute the light leaving Y, which is the same as
+// the light entering X when the medium is non-absorptive
+
+ofColor RayCaster::L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 wo) const{
+    // as emitted Radiance is 0, for now, I will just caclulate the direct scattered radiance
+    //return surfelX->emittedRadiance(wo) + L_scatteredDirect(surfelX, wo);
+    return L_scatteredDirect(surfelY, wo);
+}
+
+/*
+ From the chapter "Direct Illumination":
+ Note that actual parameter surfelY is now called surfelX in method L_scatteredDirect.
+ I changed the frame of reference by advancing one step closer to the light along a
+ transport path. As in all equations so far, X is the point at which radiance is being
+ scattered and Y is the next node closer to the light on the light transport path.
+*/
+ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const{
+    // TODO, iterate through the lights
+    glm::vec3 lightPos = lights[0].getGlobalPosition();
+    //lambertian light
+    glm::vec3 lightDirection = glm::normalize(lightPos - surfelX->getPosition());
+    glm::vec3 color = surfelX->getColor();
+    float dProd = glm::dot(surfelX->getGeometricNormal(), lightDirection);
+    glm::vec3 tmpCol = glm::vec3( dProd ) * color;
+    return ofColor(tmpCol.x*255, tmpCol.y*255, tmpCol.z*255);
+};
+
+// This method find the first intersection between a ray and a mesh. (TODO: check if it is really the first)
+// If an intersection is founded, it returns a surfel, otherwise null.
 shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh) const{
     vector<ofMeshFace> faces = mesh.getUniqueFaces();
     bool found = false;

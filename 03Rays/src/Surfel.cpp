@@ -13,3 +13,7 @@ Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, con
 float Surfel::emittedRadiance(glm::vec3 wo) const {
     return 0;
 };
+
+glm::vec3 Surfel::getColor() const{
+    return glm::vec3(1.0,1.0,1.0);
+}

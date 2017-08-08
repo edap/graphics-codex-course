@@ -7,6 +7,9 @@ class Surfel {
 public:
     Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 position);
     virtual ~Surfel() {};
+    glm::vec3 getPosition() const { return position; };
+    glm::vec3 getGeometricNormal() const { return geometricNormal; };
+    glm::vec3 getColor() const;
 private:
     float emittedRadiance(glm::vec3 wo) const;
     glm::vec3 geometricNormal;

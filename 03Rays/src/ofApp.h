@@ -49,7 +49,7 @@ public:
     ofBoxPrimitive box; //debugging box
     ofxAssimpModelLoader model;
 
-    //ofLight	light;
+    vector<ofLight>	lights;
 
 
     guiOptions options;
