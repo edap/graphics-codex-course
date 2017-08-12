@@ -69,7 +69,7 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
         //lambertian light
         glm::vec3 lightDirection = glm::normalize(lightPos - surfelX->getPosition());
         glm::vec3 color = surfelX->getColor();
-        float dProd = glm::dot(surfelX->getGeometricNormal(), lightDirection);
+        float dProd = abs(glm::dot(surfelX->getGeometricNormal(), lightDirection));
         tmpCol += glm::vec3( dProd ) * color;
     }
     return ofColor(tmpCol.x*255, tmpCol.y*255, tmpCol.z*255);
