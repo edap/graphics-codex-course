@@ -47,18 +47,19 @@ public:
 
     shared_ptr<ofImage> image;
     ofxDatGui* gui;
-    ofBoxPrimitive box; //debugging box
+
     ofxAssimpModelLoader model;
     vector<of3dPrimitive> primitives;
-
     vector<ofLight>	lights;
-
     ofNode centerOfTheScene;
     guiOptions options;
+
     //debug 3dScene
+    ofBoxPrimitive box; //debugging box
     ofMaterial material;
     ofEasyCam cam;
-    bool show3DScene = false;
+    bool show3DScene = true;
+    bool showCube = false;
 
     //gui helpers
     map<int, imgDimension> availableResolution;

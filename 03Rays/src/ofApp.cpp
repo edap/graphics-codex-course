@@ -10,29 +10,36 @@ void ofApp::setup(){
 
     //model.loadModel("CornellBox-Original.obj", 20);
     model.loadModel("teapot/teapot.obj", 20);
-    model.setRotation(0, 180, 0, 0, 1);
-    model.setPosition(0, -300, -460);
+//    model.setRotation(0, 180, 0, 0, 1);
+//    model.setPosition(0, -300, -460);
 
+    // set up a scene
     centerOfTheScene.setPosition(0, 0, 0);
-
-//    for (int i = 0; i< model.getMeshCount(); i++) {
-//        auto primitive = MeshHelper::toPrimitive(model.getMesh(i));
-//        primitive.setParent(centerOfTheScene);
-//        primitives.push_back(primitive);
-//    };
-
-
-
-
     ofLight light;
     light.setPointLight();
-    //light.setPosition(0, 300, -460); //light position in the cornell box
-    light.setPosition(-10, 10, -10);
+    material.setEmissiveColor(ofFloatColor::red);
+
+    if (showCube) {
+        light.setPosition(-10, 10, -10);
+        int side = 12;
+        box.set(side);
+        box.setParent(centerOfTheScene);
+        centerOfTheScene.move(0, 0, -32);
+        primitives.push_back(box);
+    } else {
+        for (int i = 0; i< model.getMeshCount(); i++) {
+            auto primitive = MeshHelper::toPrimitive(model.getMesh(i));
+            primitive.setParent(centerOfTheScene);
+            primitives.push_back(primitive);
+        };
+        centerOfTheScene.move(0, 0, -132);
+        light.setPosition(-50, 50, -50);
+    }
+
     lights.push_back(light);
 
     vector<string> options = {"1x1", "320x200", "640x400","800x600"};
     availableResolution = prepareResolutions();
-
 
     // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
@@ -45,16 +52,8 @@ void ofApp::setup(){
     gui->onButtonEvent(this, &ofApp::onRenderEvent);
     gui->onSliderEvent(this, &ofApp::onIndRaysEvent);
 
-    //this box and this material are just for debugging purposes
-    material.setEmissiveColor(ofFloatColor::red);
-    int side = 12;
-    box.set(side);
-    box.setParent(centerOfTheScene);
-    centerOfTheScene.move(0, 0, -34);
-    primitives.push_back(box);
-    
+
     image = initImage(160, 100);
-    //startRender();
 }
 
 void ofApp::startRender(guiOptions options){
@@ -70,30 +69,31 @@ void ofApp::startRender(guiOptions options){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    bool drawBox = true;
     if (show3DScene) {
         cam.begin();
-        //light.enable();
+        lights[0].enable();
         for(auto l:lights) {
             l.draw();
         }
-        if (drawBox) {
+        if (showCube) {
             material.begin();
             box.draw();
             material.end();
         } else{
-            model.drawFaces();
+            material.begin();
+            for(of3dPrimitive primitive: primitives){
+                primitive.draw();
+            }
+            material.end();
         };
-        //light.disable();
+        lights[0].disable();
         ofDrawAxis(100);
         cam.end();
     } else {
-
-        image->draw(10,10, 800, 600);
+        image->draw(10,10, 640, 400);
         ofDisableDepthTest();
         gui->draw();
         ofEnableDepthTest();
-        //image->draw(10,10, 160, 100);
     }
 
 
