@@ -63,7 +63,6 @@ ofColor RayCaster::L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 wo) co
  scattered and Y is the next node closer to the light on the light transport path.
 */
 ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const{
-    // TODO, iterate through the lights
     glm::vec3 tmpCol;
     for(int i = 0; i<lights.size(); i++){
         glm::vec3 lightPos = lights[i].getGlobalPosition();
@@ -72,33 +71,49 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
         glm::vec3 color = surfelX->getColor();
         float dProd = glm::dot(surfelX->getGeometricNormal(), lightDirection);
         tmpCol += glm::vec3( dProd ) * color;
-        //addedLights.rgb += clamp(dot(-lightDirection, vecNormal), 0.0, 1.0) * pointLights[l].color;
     }
-
     return ofColor(tmpCol.x*255, tmpCol.y*255, tmpCol.z*255);
 };
 
-// This method find the first intersection between a ray and a mesh. (TODO: check if it is really the first)
+// This method find the first intersection between a ray and a mesh.
 // If an intersection is founded, it returns a surfel, otherwise null.
 shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh, const glm::mat4& globalTransfMatrix) const{
     vector<ofMeshFace> faces = mesh.getUniqueFaces();
+    // at the beginning, no intersection is found and the distance to the closest surface
+    // is set to an high value;
     bool found = false;
+    float distanceToTheClosestSurface = numeric_limits<float>::infinity();
+    glm::vec3 faceNormal;
+    glm::vec3 position;
+    glm::vec3 rayDirection;
+
     for (ofMeshFace face : faces) {
         glm::vec3 baricenter;
-        found = glm::intersectRayTriangle(
+        bool intersection = glm::intersectRayTriangle(
                                           ray.origin, ray.direction,
                                           glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(0), 1.f)),
                                           glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
                                           glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
                                           baricenter);
-        if (found) {
-            glm::vec3 faceNormal = face.getFaceNormal();
-            glm::vec3 position = getPointOnTriangle(ray, baricenter);
-            return shared_ptr<Surfel>(new Surfel(faceNormal, ray.direction, position));
-            break;
+        // when an intersection is found, it updates the distanceToTheClosestSurface value
+        // this value is used to order the new intersections, if a new intersection with a smaller baricenter.z
+        // value is found, this one will become the new intersection
+        if (intersection) {
+            if (baricenter.z < distanceToTheClosestSurface) {
+                found = true;
+                distanceToTheClosestSurface = baricenter.z;
+                faceNormal = face.getFaceNormal();
+                position = getPointOnTriangle(ray, baricenter);
+                rayDirection = ray.direction;
+            }
         }
     }
-    return nullptr;
+
+    if (found) {
+        return shared_ptr<Surfel>(new Surfel(faceNormal, rayDirection, position));
+    } else {
+        return nullptr;
+    }
 };
 
 /*

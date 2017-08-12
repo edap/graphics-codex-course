@@ -34,7 +34,7 @@ void ofApp::setup(){
 
     lights.push_back(light);
 
-    vector<string> options = {"1x1", "320x200", "640x400","800x600"};
+    vector<string> options = {"1x1", "120x75", "320x200", "640x400","800x600"};
     availableResolution = prepareResolutions();
 
     // instantiate and position the gui //
@@ -47,7 +47,6 @@ void ofApp::setup(){
     gui->onDropdownEvent(this, &ofApp::onResolutionEvent);
     gui->onButtonEvent(this, &ofApp::onRenderEvent);
     gui->onSliderEvent(this, &ofApp::onIndRaysEvent);
-
 
     image = initImage(160, 100);
 }
@@ -180,12 +179,14 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 map<int, imgDimension> ofApp::prepareResolutions(){
     map<int, imgDimension> avl;
     imgDimension small; small.width = 1; small.height = 1;
+    imgDimension normal; normal.width = 120; normal.height = 75;
     imgDimension medium; medium.width = 320; medium.height = 200;
     imgDimension large; large.width = 640; large.height = 400;
     imgDimension big; big.width = 800; big.height = 600;
     avl[0] = small;
-    avl[1] = medium;
-    avl[2] = big;
-    avl[3] = large;
+    avl[1] = normal;
+    avl[2] = medium;
+    avl[3] = big;
+    avl[4] = large;
     return avl;
 };

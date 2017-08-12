@@ -59,7 +59,7 @@ public:
     ofMaterial material;
     ofEasyCam cam;
     bool show3DScene = false;
-    bool showCube = true;
+    bool showCube = false;
 
     //gui helpers
     map<int, imgDimension> availableResolution;

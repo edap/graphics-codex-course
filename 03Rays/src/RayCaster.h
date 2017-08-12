@@ -29,6 +29,5 @@ protected:
     ofColor L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 ray_direction_inverted) const;
     ofColor L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const;
     vector<of3dPrimitive> primitives;
-    glm::mat4 globalTransfMatrix;
 
 };
