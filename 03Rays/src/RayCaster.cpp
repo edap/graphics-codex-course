@@ -1,8 +1,7 @@
 #include "RayCaster.h"
 
-RayCaster::RayCaster(const ofMesh& _mesh, glm::mat4 _globalTransfMatrix, vector<ofLight> _lights){
-    mesh = _mesh;
-    globalTransfMatrix = _globalTransfMatrix;
+RayCaster::RayCaster(const vector<of3dPrimitive>& _primitives, const vector<ofLight> _lights){
+    primitives = _primitives;
     lights = _lights;
 };
 
@@ -35,13 +34,15 @@ ofColor RayCaster::L_i(const Ray& ray) const{
     // for all the triangles in a mesh
     // Find the first intersection (and the closest!) with the scene
 
-    const shared_ptr<Surfel>& surfelY = findFirstIntersection(ray, this->mesh);
+    for(of3dPrimitive primitive : primitives){
+        const shared_ptr<Surfel>& surfelY = findFirstIntersection(ray, primitive.getMesh(), primitive.getGlobalTransformMatrix());
 
-    //if (notNull(s)) TODO, if a ray is found, create a Surfel
-    if (surfelY) {
-        return L_0(surfelY, -ray.direction);
-    } else {
-        return ofColor(0,0,0);
+        //if (notNull(s)) TODO, if a ray is found, create a Surfel
+        if (surfelY) {
+            return L_0(surfelY, -ray.direction);
+        } else {
+            return ofColor(0,0,0);
+        }
     }
 }
 
@@ -74,7 +75,7 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
 
 // This method find the first intersection between a ray and a mesh. (TODO: check if it is really the first)
 // If an intersection is founded, it returns a surfel, otherwise null.
-shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh) const{
+shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh, const glm::mat4& globalTransfMatrix) const{
     vector<ofMeshFace> faces = mesh.getUniqueFaces();
     bool found = false;
     for (ofMeshFace face : faces) {
@@ -116,8 +117,4 @@ shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh
 glm::vec3 RayCaster::getPointOnTriangle(const Ray& _ray, const glm::vec3& _baryPosition) const {
     return _ray.origin + (_ray.direction * _baryPosition.z);
 };
-
-/* It find the intersection between a ray (with origin P and direction w) and the scene.
- If ray P + tw hits triangle V[0], V[1], V[2], then the function returns true, stores the barycentric coordinates in b[],
- and stores the distance to the intersection in t. Otherwise returns false and the other output parameters are undefined.*/
 

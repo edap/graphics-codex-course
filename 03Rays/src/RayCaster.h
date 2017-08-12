@@ -14,12 +14,12 @@ class RayCaster {
 public:
     // when you will pass a model from assimp,
     // remember this: https://github.com/openframeworks/openFrameworks/issues/2989
-    RayCaster(const ofMesh& _mesh, glm::mat4 globalTransfMatrix, vector<ofLight>lights);
+    RayCaster(const vector<of3dPrimitive>& primitives, const vector<ofLight>lights);
     //iterates overall pixels calling traceRay
     void traceImage(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
 protected:
     vector<ofLight> lights;
-    shared_ptr<Surfel> findFirstIntersection(const Ray& ray, const ofMesh& mesh) const;
+    shared_ptr<Surfel> findFirstIntersection(const Ray& ray, const ofMesh& mesh, const glm::mat4& globalTransfMatrix) const;
     // 
     ofColor L_i(const Ray& ray) const;
     // Find the first intersection with the scene
@@ -28,7 +28,7 @@ protected:
     glm::vec3 getPointOnTriangle(const Ray& _ray, const glm::vec3& _baryPosition) const;
     ofColor L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 ray_direction_inverted) const;
     ofColor L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const;
-    ofMesh mesh;
+    vector<of3dPrimitive> primitives;
     glm::mat4 globalTransfMatrix;
 
 };

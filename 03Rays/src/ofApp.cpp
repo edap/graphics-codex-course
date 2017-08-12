@@ -8,9 +8,21 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofEnableDepthTest();
 
-    model.loadModel("CornellBox-Original.obj", 20);
+    //model.loadModel("CornellBox-Original.obj", 20);
+    model.loadModel("teapot/teapot.obj", 20);
     model.setRotation(0, 180, 0, 0, 1);
     model.setPosition(0, -300, -460);
+
+    centerOfTheScene.setPosition(0, 0, 0);
+
+//    for (int i = 0; i< model.getMeshCount(); i++) {
+//        auto primitive = MeshHelper::toPrimitive(model.getMesh(i));
+//        primitive.setParent(centerOfTheScene);
+//        primitives.push_back(primitive);
+//    };
+
+
+
 
     ofLight light;
     light.setPointLight();
@@ -37,7 +49,10 @@ void ofApp::setup(){
     material.setEmissiveColor(ofFloatColor::red);
     int side = 12;
     box.set(side);
-    box.move(0, 0, -34);
+    box.setParent(centerOfTheScene);
+    centerOfTheScene.move(0, 0, -34);
+    primitives.push_back(box);
+    
     image = initImage(160, 100);
     //startRender();
 }
@@ -46,7 +61,7 @@ void ofApp::startRender(guiOptions options){
     PinholeCamera camera;
     image = initImage(options.resolution.width, options.resolution.height);
     const ofMesh mesh = box.getMesh();
-    RayCaster rayCaster = RayCaster(mesh, box.getGlobalTransformMatrix(), lights);
+    RayCaster rayCaster = RayCaster(primitives, lights);
 
     // to convert vertices to word space should not be a task that belongs to the
     // ray caster
@@ -55,7 +70,7 @@ void ofApp::startRender(guiOptions options){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    bool drawBox = false;
+    bool drawBox = true;
     if (show3DScene) {
         cam.begin();
         //light.enable();

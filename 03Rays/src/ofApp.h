@@ -6,6 +6,7 @@
 #include "ofxDatGui.h"
 #include "Surfel.h"
 #include "RayCaster.h"
+#include "MeshHelper.h"
 
 struct imgDimension{
     int width;
@@ -48,10 +49,11 @@ public:
     ofxDatGui* gui;
     ofBoxPrimitive box; //debugging box
     ofxAssimpModelLoader model;
+    vector<of3dPrimitive> primitives;
 
     vector<ofLight>	lights;
 
-
+    ofNode centerOfTheScene;
     guiOptions options;
     //debug 3dScene
     ofMaterial material;
