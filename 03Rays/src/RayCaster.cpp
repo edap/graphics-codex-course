@@ -1,6 +1,6 @@
 #include "RayCaster.h"
 
-RayCaster::RayCaster(const vector<of3dPrimitive>& _primitives, const vector<ofLight> _lights){
+RayCaster::RayCaster(const vector<of3dPrimitive>& _primitives, const vector<ofLight>& _lights){
     primitives = _primitives;
     lights = _lights;
 };
@@ -64,12 +64,17 @@ ofColor RayCaster::L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 wo) co
 */
 ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const{
     // TODO, iterate through the lights
-    glm::vec3 lightPos = lights[0].getGlobalPosition();
-    //lambertian light
-    glm::vec3 lightDirection = glm::normalize(lightPos - surfelX->getPosition());
-    glm::vec3 color = surfelX->getColor();
-    float dProd = glm::dot(surfelX->getGeometricNormal(), lightDirection);
-    glm::vec3 tmpCol = glm::vec3( dProd ) * color;
+    glm::vec3 tmpCol;
+    for(int i = 0; i<lights.size(); i++){
+        glm::vec3 lightPos = lights[i].getGlobalPosition();
+        //lambertian light
+        glm::vec3 lightDirection = glm::normalize(lightPos - surfelX->getPosition());
+        glm::vec3 color = surfelX->getColor();
+        float dProd = glm::dot(surfelX->getGeometricNormal(), lightDirection);
+        tmpCol += glm::vec3( dProd ) * color;
+        //addedLights.rgb += clamp(dot(-lightDirection, vecNormal), 0.0, 1.0) * pointLights[l].color;
+    }
+
     return ofColor(tmpCol.x*255, tmpCol.y*255, tmpCol.z*255);
 };
 

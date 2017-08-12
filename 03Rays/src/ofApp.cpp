@@ -27,12 +27,8 @@ void ofApp::setup(){
         centerOfTheScene.move(0, 0, -32);
         primitives.push_back(box);
     } else {
-        for (int i = 0; i< model.getMeshCount(); i++) {
-            auto primitive = MeshHelper::toPrimitive(model.getMesh(i));
-            primitive.setParent(centerOfTheScene);
-            primitives.push_back(primitive);
-        };
-        centerOfTheScene.move(0, 0, -132);
+        MeshHelper::readModelAndGetPrimitives(model, primitives, centerOfTheScene);
+        centerOfTheScene.move(0, 0, -192);
         light.setPosition(-50, 50, -50);
     }
 

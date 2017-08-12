@@ -14,7 +14,7 @@ class RayCaster {
 public:
     // when you will pass a model from assimp,
     // remember this: https://github.com/openframeworks/openFrameworks/issues/2989
-    RayCaster(const vector<of3dPrimitive>& primitives, const vector<ofLight>lights);
+    RayCaster(const vector<of3dPrimitive>& primitives, const vector<ofLight>& lights);
     //iterates overall pixels calling traceRay
     void traceImage(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
 protected:

@@ -58,8 +58,8 @@ public:
     ofBoxPrimitive box; //debugging box
     ofMaterial material;
     ofEasyCam cam;
-    bool show3DScene = true;
-    bool showCube = false;
+    bool show3DScene = false;
+    bool showCube = true;
 
     //gui helpers
     map<int, imgDimension> availableResolution;
