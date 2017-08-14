@@ -71,7 +71,7 @@ ofColor RayCaster::L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 wo) co
 */
 ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const{
     glm::vec3 tmpCol;
-    for(int i = 0; i<lights.size(); i++){
+    for (int i = 0; i<lights.size(); i++) {
         glm::vec3 lightPos = lights[i].getGlobalPosition();
         //lambertian light
         glm::vec3 lightDirection = glm::normalize(lightPos - surfelX->getPosition());

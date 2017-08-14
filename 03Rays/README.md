@@ -3,7 +3,7 @@
 -this notes are just for personal use-
 
 
-This project is an excercise part of the programming projects course [graphix codex](http://graphicscodex.com/) by Morgan McGuire. All the quotes that you see in this files comes from this online book.
+This project is an excercise part of the programming projects course [graphix codex](http://graphicscodex.com/) by Morgan McGuire. All the quotes that you see in this file comes from this online book.
 
 
 
@@ -111,18 +111,62 @@ for(each x and y in the virtual image plane){
     ray = findThePrimaryRay(x,y,camera);
     if (intersect(ray, mesh)) {
         // shade the intersection point. What is the emitted/reflected light towards the camera?
-        return getShadePointColor();
+        Color c = getShadePointColor(ray, mesh, material);
+        writeFrameBuffer(x, y, c);
     } else {
-        return backGroundColor;
+        Color c =  backGroundColor;
+        writeFrameBuffer(x, y, c);
     }
 }
 ```
 
 *P.S.* note, this pseudocode refers to what is called a `forward shading`, in contrast to `deferred shading` [def. shading](https://en.wikipedia.org/wiki/Deferred_shading). In my renderer, I've implemented a forward shading.
 
+In a deferred shading, we first save the information about position, normal, color in a buffer, called `G-Buffer`. In a second step we iterate over the G-Buffer and we calculate the shading. The pseudocode will be something like this:
+
+```
+clearGeometryBuffer();
+fillDepthBuffer(infinity);
+for(each x and y in the virtual image plane){
+    float primDepth = getDepthOfPrimitiveAtPixel(x,y);
+    if (primDepth > readDepthBuffer(x,y)) {
+        // pixel of this primitive is obsured, discard it
+        continue
+    } else {
+        getPrimitiveShadingInfo(mat, pos normal);
+        writeGeometryBuffer(x,y,mat,pos,normal); 
+        writeDepthBuffer(x, y, primDepth);
+    }
+}
+
+
+for(each x and y in the virtual image plane){
+    ray = findThePrimaryRay(x,y,camera);
+    if (readDepthBuffer(x,y) == infinity) {
+        // no geometry here
+        Color c =  backGroundColor;
+        writeFrameBuffer(x, y, c);
+
+    } else {
+        readGeometryBuffer(x,y, mesh, material);
+        Color c = getShadePointColor(position, mesh, material);
+        writeFrameBuffer(x, y, c);
+    }
+}
+```
+Again, deferred rendering it is not implemented, but it is worth to explain why it is popular.
+When there are multiple lights, it could be expensive to calculate the final color of a pixel in a single calculation (that is, what the `getShadePointColor` is doing in both of the examples above, and what your loop `for (int i = 0; i<lights.size(); i++) {` in `L_scatteredLight` is doing). Instead, we must. use multiple passes, and *accumulate* the reflected light for each source in the frame buffer. In the forward rendering, these extra passes involve rendering the primitives. In the deferred rendering, extra passes are already in image space (see the pictures in the right colum of the wikipedia page to understand it better), and we can read the geometries from the Geometry Buffer. In this situation, the def shading is much more performant.
+
+
 #### Texture coordinates
 This part is yet not implemented
 
 ## Shading
+In my implementation i consider only direct illumination. This means that my calculation will always underestimate the light. In the book, the chapter that I've taken as riferiment is the "Direct Illumination one".
+
+Once an intersection is founded, I've to find how much light is that Surfel reflecting and in which direction. In my renderer, the method is `L_0(surfelY, -ray.direction);` in the RayCaster class.
+When considering only direct illumination the outgoing light can be seen as emitted radiance + scattered illumination.
+
+The biggest challange here is to find out scattered radiance. The method that does this is called `L_scatteredDirect` in the `RayCaster` class.
 
 
