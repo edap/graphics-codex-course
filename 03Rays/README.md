@@ -175,5 +175,9 @@ The biggest challange here is to find out scattered radiance. The method that do
 My implementation comes from this [article](http://www.informit.com/articles/article.aspx?p=2115288&seqNum=4).
 Another, more complete c++ renderer can be found [here](https://github.com/seanzw/yart-cpp)
 
+### Describing surfaces properties, the BRDF
+The *Bidirectional reflectional distribution function*, aka BRDF, answer to this question:
+"When a light of a given color strikes the surface from a given incident direction, how much of that light is reflected in some other particular direction?"
+
 
 
