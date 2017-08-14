@@ -11,8 +11,8 @@ Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, con
 
 }
 
-float Surfel::emittedRadiance(glm::vec3 wo) const {
-    return 0;
+glm::vec3 Surfel::emittedRadiance(glm::vec3 wo) const {
+    return glm::vec3(0.f,0.f,0.f);
 };
 
 ofColor finiteScatteringDensity(const glm::vec3& w_i, const glm::vec3& w_o){

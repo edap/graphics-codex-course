@@ -70,7 +70,7 @@ ofColor RayCaster::L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 wo) co
  scattered and Y is the next node closer to the light on the light transport path.
 */
 ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const{
-    glm::vec3 tmpCol;
+    glm::vec3 Light = surfelX->emittedRadiance(wo);
     for (int i = 0; i<lights.size(); i++) {
         glm::vec3 lightPos = lights[i].getGlobalPosition();
 
@@ -83,14 +83,14 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
             float radiance = lightPower / (4 * PI * sqrt(distanceToLight));
             //lambertian light
             float dProd = abs(glm::dot(lightDirection, surfelX->getGeometricNormal()));
-            tmpCol +=
+            Light +=
                 radiance * // comment out this when debugging
                 glm::vec3( dProd ) *
                 color;
         }
 
     }
-    return ofColor(tmpCol.x*255, tmpCol.y*255, tmpCol.z*255);
+    return ofColor(Light.x*255, Light.y*255, Light.z*255);
 };
 
 bool RayCaster::visible(const glm::vec3& surfelPos, const glm::vec3& lightPos) const{

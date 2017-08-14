@@ -11,8 +11,9 @@ public:
     glm::vec3 getGeometricNormal() const { return geometricNormal; };
     glm::vec3 getColor() const;
     ofColor finiteScatteringDensity(const glm::vec3& w_i, const glm::vec3& w_o);
+    glm::vec3 emittedRadiance(glm::vec3 wo) const;
+
 private:
-    float emittedRadiance(glm::vec3 wo) const;
     glm::vec3 geometricNormal;
     glm::vec3 position;
     //float light;
