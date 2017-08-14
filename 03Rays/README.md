@@ -120,7 +120,8 @@ for(each x and y in the virtual image plane){
 }
 ```
 
-*P.S.* note, this pseudocode refers to what is called a `forward shading`, in contrast to `deferred shading` [def. shading](https://en.wikipedia.org/wiki/Deferred_shading). In my renderer, I've implemented a forward shading.
+### Long parenthesis about deferred shading
+This pseudocode above refers to what is called a `forward shading`, in contrast to `deferred shading` [def. shading](https://en.wikipedia.org/wiki/Deferred_shading). In my renderer, I've implemented a forward shading.
 
 In a deferred shading, we first save the information about position, normal, color in a buffer, called `G-Buffer`. In a second step we iterate over the G-Buffer and we calculate the shading. The pseudocode will be something like this:
 
@@ -168,5 +169,8 @@ Once an intersection is founded, I've to find how much light is that Surfel refl
 When considering only direct illumination the outgoing light can be seen as emitted radiance + scattered illumination.
 
 The biggest challange here is to find out scattered radiance. The method that does this is called `L_scatteredDirect` in the `RayCaster` class.
+
+My implementation comes from this [article](http://www.informit.com/articles/article.aspx?p=2115288&seqNum=4)
+
 
 
