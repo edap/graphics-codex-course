@@ -179,5 +179,21 @@ Another, more complete c++ renderer can be found [here](https://github.com/seanz
 The *Bidirectional reflectional distribution function*, aka BRDF, answer to this question:
 "When a light of a given color strikes the surface from a given incident direction, how much of that light is reflected in some other particular direction?"
 
+From "3D Matht Primer for graphics and game development"
+
+> Simbolically, the BRDF function is written as a function `f(x, win, wout, gamma)`. The value of this function returns a scalar that describe the relatively likelihood that light incident at the point `x` from direction `win` will be reflected in the outgoing direction `wout`. `gamma` is the value that defines the color, different colors of light are usually reflected differently, hence the dependency on gamma.
+
+The two material property, shiness and color, can precisely be expressed in the framework of a BRDF.
+Two examples to understand BRDF better
+
+1. a green ball looks green because it assorbes, for examples, 95% of red and blue light and it reflects just the 5% of that light. The green light is not absorbed, and it is 100% reflected, that's why it looks green
+2. Consider the difference between a shiny red plastic and a sheet of red paper (not lucid). The shiny red surface reflects incident light much more strongely in one particular direction, while the red paper scatters light more evenly across differents directions. To summarize, the BRDF function accounts for the difference in shininess of two objects.
+
+More complicated phenomena can be described generalizing the BRDF:
+
+1. The light could point back to the surface, generation translucence and light refraction. This can be bescribed by a BSSDF function, *Bidirectional surface scattering distribution function*.
+2. Sometimes light goes into the object and bounce into it before to go out. This happens for example with a glass of milk or with skin. This is called *subsurface scattering*, and requires splitting the single refraction point x in `xin` and `xout`2, which is used by the BSSDF, *Bidirectional surface scattering distribution function*
+3. Even volumetric effects, like fog, can be espressed dropping the word *surface* and defining a BSDF, *Bidirectional scattering distribution function*, at any point in space, not just on surfaces.
+
 
 
