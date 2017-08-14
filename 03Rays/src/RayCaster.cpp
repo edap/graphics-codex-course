@@ -77,14 +77,19 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
         if (visible(surfelX->getPosition(), lightPos)) {
             glm::vec3 offset = lightPos - surfelX->getPosition();
             const float distanceToLight = glm::length(offset);
-            glm::vec3 lightDirection = glm::normalize(offset);
+            glm::vec3 wi = glm::normalize(offset);
             glm::vec3 color = surfelX->getColor();
-            float lightPower = 100.0; //light power is not implemented in ofLight
-            float radiance = lightPower / (4 * PI * sqrt(distanceToLight));
+            //light power is not implemented in ofLight,
+            // I use a getDiffuseColor().getBrightness() for this
+            float lightPower = lights[i].getDiffuseColor().getBrightness() * 100;
+            float biradiance = lightPower / (4 * PI * sqrt(distanceToLight));
+
             //lambertian light
-            float dProd = abs(glm::dot(lightDirection, surfelX->getGeometricNormal()));
+            float dProd = abs(glm::dot(wi, surfelX->getGeometricNormal()));
+            glm::vec3 finiteScatteringDensity = surfelX->finiteScatteringDensity(wi, wo);
             Light +=
-                radiance * // comment out this when debugging
+                biradiance * // comment out this when debugging
+                finiteScatteringDensity *
                 glm::vec3( dProd ) *
                 color;
         }

@@ -8,23 +8,25 @@ Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, con
     if(glm::dot(_faceNormal, _rayDirection) >= 0){
         backface = true;
     }
+    color = glm::vec3(1.f,1.f,1.f); //for now, all the surfaces are white. TODO, pass the color when initializing the Surfel
 
 }
 
 glm::vec3 Surfel::emittedRadiance(glm::vec3 wo) const {
-    return glm::vec3(0.f,0.f,0.f);
+    return glm::vec3(0.f,0.f,0.f); //material is not emissive
 };
 
-ofColor finiteScatteringDensity(const glm::vec3& w_i, const glm::vec3& w_o){
-    // Surface normal
-//    const glm::vec3& n = shadingNormal;
-//    if (glm::dot(w_i, n) <= 0.0) {
-//        // Transmission is specular-only, so never appears
-//        // in finiteScatteringDensity for this BSDF.
-//        return ofColor(0.0, 0.0, 0.0);
-//    }
+glm::vec3 Surfel::finiteScatteringDensity(const glm::vec3& w_i, const glm::vec3& w_o) const {
+    //easy for now. TODO, implement different reflections
+    return lambertianReflectivity();
 }
 
 glm::vec3 Surfel::getColor() const{
     return glm::vec3(1.0,1.0,1.0);
+}
+
+// From http://graphicscodex.com/projects/rays/
+// "The simplest material parameter is to set the G3D::UniversalSurfel::lambertianReflectivity to the color that you want the object to appear."
+glm::vec3 Surfel::lambertianReflectivity() const {
+    return color;
 }
