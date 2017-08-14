@@ -73,14 +73,29 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
     glm::vec3 tmpCol;
     for (int i = 0; i<lights.size(); i++) {
         glm::vec3 lightPos = lights[i].getGlobalPosition();
-        //lambertian light
-        glm::vec3 lightDirection = glm::normalize(lightPos - surfelX->getPosition());
-        glm::vec3 color = surfelX->getColor();
-        float dProd = abs(glm::dot(surfelX->getGeometricNormal(), lightDirection));
-        tmpCol += glm::vec3( dProd ) * color;
+
+        if (visible(surfelX->getPosition(), lightPos)) {
+            glm::vec3 offset = lightPos - surfelX->getPosition();
+            const float distanceToLight = glm::length(offset);
+            glm::vec3 lightDirection = glm::normalize(offset);
+            glm::vec3 color = surfelX->getColor();
+            float lightPower = 100.0; //light power is not implemented in ofLight
+            float radiance = lightPower / (4 * PI * sqrt(distanceToLight));
+            //lambertian light
+            float dProd = abs(glm::dot(lightDirection, surfelX->getGeometricNormal()));
+            tmpCol +=
+                radiance * // comment out this when debugging
+                glm::vec3( dProd ) *
+                color;
+        }
+
     }
     return ofColor(tmpCol.x*255, tmpCol.y*255, tmpCol.z*255);
 };
+
+bool RayCaster::visible(const glm::vec3& surfelPos, const glm::vec3& lightPos) const{
+    return true;
+}
 
 // This method find the first intersection between a ray and a mesh.
 // If an intersection is founded, it returns a surfel, otherwise null.

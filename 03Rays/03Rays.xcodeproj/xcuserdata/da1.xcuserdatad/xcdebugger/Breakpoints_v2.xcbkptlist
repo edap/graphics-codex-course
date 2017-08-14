@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524255400.253423"
+            timestampString = "524417818.606315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "RayCaster::findFirstIntersection(const Ray&amp; ray, const ofMesh&amp; mesh, const glm::mat4&amp; globalTransfMatrix)"
             landmarkType = "7">
          </BreakpointContent>
@@ -118,12 +118,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524255400.253423"
+            timestampString = "524417818.606315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "RayCaster::findFirstIntersection(const Ray&amp; ray, const ofMesh&amp; mesh, const glm::mat4&amp; globalTransfMatrix)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/RayCaster.cpp"
+            timestampString = "524416844.713155"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "RayCaster::L_scatteredDirect(const shared_ptr&lt;Surfel&gt;&amp; surfelX,const glm::vec3 wo)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
