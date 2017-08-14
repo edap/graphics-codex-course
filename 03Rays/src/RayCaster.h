@@ -19,6 +19,7 @@ public:
     void traceImage(const PinholeCamera& camera, shared_ptr<ofImage>& image) const;
 protected:
     vector<ofLight> lights;
+    shared_ptr<Surfel> findFirstIntersectionWithThePrimitives(const Ray& ray) const;
     shared_ptr<Surfel> findFirstIntersection(const Ray& ray, const ofMesh& mesh, const glm::mat4& globalTransfMatrix) const;
     // 
     ofColor L_i(const Ray& ray) const;

@@ -28,7 +28,7 @@ void ofApp::setup(){
         primitives.push_back(box);
     } else {
         MeshHelper::readModelAndGetPrimitives(model, primitives, centerOfTheScene);
-        centerOfTheScene.move(0, 0, -192);
+        centerOfTheScene.move(0, -40, -132);
         light.setPosition(-50, 50, -50);
     }
 
@@ -54,11 +54,7 @@ void ofApp::setup(){
 void ofApp::startRender(guiOptions options){
     PinholeCamera camera;
     image = initImage(options.resolution.width, options.resolution.height);
-    const ofMesh mesh = box.getMesh();
     RayCaster rayCaster = RayCaster(primitives, lights);
-
-    // to convert vertices to word space should not be a task that belongs to the
-    // ray caster
     rayCaster.traceImage(camera, image);
 }
 

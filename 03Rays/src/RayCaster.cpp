@@ -46,6 +46,13 @@ ofColor RayCaster::L_i(const Ray& ray) const{
     }
 }
 
+shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& ray) const {
+    for(of3dPrimitive primitive : this->primitives){
+        const shared_ptr<Surfel>& surfelY = findFirstIntersection(ray, primitive.getMesh(), primitive.getGlobalTransformMatrix());
+
+    }
+}
+
 // Compute the light leaving Y, which is the same as
 // the light entering X when the medium is non-absorptive
 
@@ -82,7 +89,7 @@ shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh
     // at the beginning, no intersection is found and the distance to the closest surface
     // is set to an high value;
     bool found = false;
-    float distanceToTheClosestSurface = numeric_limits<float>::infinity();
+    float distanceToTheClosestSurface = numeric_limits<float>::max();
     glm::vec3 faceNormal;
     glm::vec3 position;
     glm::vec3 rayDirection;

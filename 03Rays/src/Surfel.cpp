@@ -15,6 +15,16 @@ float Surfel::emittedRadiance(glm::vec3 wo) const {
     return 0;
 };
 
+ofColor finiteScatteringDensity(const glm::vec3& w_i, const glm::vec3& w_o){
+    // Surface normal
+//    const glm::vec3& n = shadingNormal;
+//    if (glm::dot(w_i, n) <= 0.0) {
+//        // Transmission is specular-only, so never appears
+//        // in finiteScatteringDensity for this BSDF.
+//        return ofColor(0.0, 0.0, 0.0);
+//    }
+}
+
 glm::vec3 Surfel::getColor() const{
     return glm::vec3(1.0,1.0,1.0);
 }
