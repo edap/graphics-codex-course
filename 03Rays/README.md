@@ -168,9 +168,12 @@ In my implementation i consider only direct illumination. This means that my cal
 Once an intersection is founded, I've to find how much light is that Surfel reflecting and in which direction. In my renderer, the method is `L_0(surfelY, -ray.direction);` in the RayCaster class.
 When considering only direct illumination the outgoing light can be seen as emitted radiance + scattered illumination.
 
+![The Light Field](img/light-eq.jpg)
+
 The biggest challange here is to find out scattered radiance. The method that does this is called `L_scatteredDirect` in the `RayCaster` class.
 
-My implementation comes from this [article](http://www.informit.com/articles/article.aspx?p=2115288&seqNum=4)
+My implementation comes from this [article](http://www.informit.com/articles/article.aspx?p=2115288&seqNum=4).
+Another, more complete c++ renderer can be found [here](https://github.com/seanzw/yart-cpp)
 
 
 
