@@ -53,9 +53,8 @@ shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& 
     }
 }
 
-// Compute the light leaving Y, which is the same as
+// It computes the light leaving Y, which is the same as
 // the light entering X when the medium is non-absorptive
-
 ofColor RayCaster::L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 wo) const{
     // as emitted Radiance is 0, for now, I will just caclulate the direct scattered radiance
     //return surfelX->emittedRadiance(wo) + L_scatteredDirect(surfelX, wo);
@@ -79,7 +78,7 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
             const float distanceToLight = glm::length(offset);
             glm::vec3 wi = glm::normalize(offset);
             glm::vec3 color = surfelX->getColor();
-            //light power is not implemented in ofLight,
+            // light power is not implemented in ofLight,
             // I use a getDiffuseColor().getBrightness() for this
             float lightPower = lights[i].getDiffuseColor().getBrightness() * 100;
             float biradiance = lightPower / (4 * PI * sqrt(distanceToLight));
