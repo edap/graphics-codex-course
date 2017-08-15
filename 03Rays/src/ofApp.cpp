@@ -26,7 +26,7 @@ void ofApp::setup(){
         primitives.push_back(box);
     } else if (showCornell){
         MeshHelper::readModelAndGetPrimitives(modelCornell, primitives, centerOfTheScene);
-        centerOfTheScene.move(0, -1, -5);
+        centerOfTheScene.move(0, -1, -3);
         light.setPosition(0, +0.5, -5.5);
     } else {
         MeshHelper::readModelAndGetPrimitives(modelTeapot, primitives, centerOfTheScene);
