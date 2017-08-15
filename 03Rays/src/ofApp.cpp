@@ -8,10 +8,8 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofEnableDepthTest();
 
-    //model.loadModel("CornellBox-Original.obj", 20);
-    model.loadModel("teapot/teapot.obj", 20);
-//    model.setRotation(0, 180, 0, 0, 1);
-//    model.setPosition(0, -300, -460);
+    modelCornell.loadModel("CornellBox-Original.obj", 20);
+    modelTeapot.loadModel("teapot/teapot.obj", 20);
 
     // set up a scene
     centerOfTheScene.setPosition(0, 0, 0);
@@ -26,8 +24,12 @@ void ofApp::setup(){
         box.setParent(centerOfTheScene);
         centerOfTheScene.move(0, 0, -32);
         primitives.push_back(box);
+    } else if (showCornell){
+        MeshHelper::readModelAndGetPrimitives(modelCornell, primitives, centerOfTheScene);
+        centerOfTheScene.move(0, -1, -5);
+        light.setPosition(0, +0.5, -5.5);
     } else {
-        MeshHelper::readModelAndGetPrimitives(model, primitives, centerOfTheScene);
+        MeshHelper::readModelAndGetPrimitives(modelTeapot, primitives, centerOfTheScene);
         centerOfTheScene.move(0, -40, -132);
         light.setPosition(-50, 50, -50);
     }
@@ -64,13 +66,15 @@ void ofApp::draw(){
         cam.begin();
         lights[0].enable();
         for(auto l:lights) {
-            l.draw();
+            //l.draw();
+            auto pos = l.getGlobalPosition();
+            ofDrawSphere(pos.x, pos.y, pos.z, 0.1);
         }
         if (showCube) {
             material.begin();
             box.draw();
             material.end();
-        } else{
+        } else {
             material.begin();
             for(of3dPrimitive primitive: primitives){
                 primitive.draw();

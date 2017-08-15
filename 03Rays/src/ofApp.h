@@ -48,7 +48,8 @@ public:
     shared_ptr<ofImage> image;
     ofxDatGui* gui;
 
-    ofxAssimpModelLoader model;
+    ofxAssimpModelLoader modelTeapot;
+    ofxAssimpModelLoader modelCornell;
     vector<of3dPrimitive> primitives;
     vector<ofLight>	lights;
     ofNode centerOfTheScene;
@@ -56,10 +57,12 @@ public:
 
     //debug 3dScene
     ofBoxPrimitive box; //debugging box
+    ofPlanePrimitive plane;
     ofMaterial material;
     ofEasyCam cam;
     bool show3DScene = false;
     bool showCube = false;
+    bool showCornell = true;
 
     //gui helpers
     map<int, imgDimension> availableResolution;
