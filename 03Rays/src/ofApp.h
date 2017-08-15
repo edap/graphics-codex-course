@@ -59,6 +59,7 @@ public:
     ofBoxPrimitive box; //debugging box
     ofPlanePrimitive plane;
     ofMaterial material;
+    ofMaterial lightDebugColor;
     ofEasyCam cam;
     bool show3DScene = false;
     bool showCube = false;

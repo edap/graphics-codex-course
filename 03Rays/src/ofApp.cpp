@@ -16,6 +16,7 @@ void ofApp::setup(){
     ofLight light;
     light.setPointLight();
     material.setEmissiveColor(ofFloatColor::red);
+    lightDebugColor.setEmissiveColor(ofFloatColor::blue);
 
     if (showCube) {
         light.setPosition(-10, 10, -10);
@@ -27,7 +28,7 @@ void ofApp::setup(){
     } else if (showCornell){
         MeshHelper::readModelAndGetPrimitives(modelCornell, primitives, centerOfTheScene);
         centerOfTheScene.move(0, -1, -3);
-        light.setPosition(0, +0.5, -5.5);
+        light.setPosition(0, +0.5, -3.0);
     } else {
         MeshHelper::readModelAndGetPrimitives(modelTeapot, primitives, centerOfTheScene);
         centerOfTheScene.move(0, -40, -132);
@@ -65,11 +66,13 @@ void ofApp::draw(){
     if (show3DScene) {
         cam.begin();
         lights[0].enable();
+        lightDebugColor.begin();
         for(auto l:lights) {
             //l.draw();
             auto pos = l.getGlobalPosition();
-            ofDrawSphere(pos.x, pos.y, pos.z, 0.1);
+            ofDrawSphere(pos.x, pos.y, pos.z, 0.2);
         }
+        lightDebugColor.end();
         if (showCube) {
             material.begin();
             box.draw();
