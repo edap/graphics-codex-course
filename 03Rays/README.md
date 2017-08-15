@@ -196,4 +196,9 @@ More complicated phenomena can be described generalizing the BRDF:
 3. Even volumetric effects, like fog, can be espressed dropping the word *surface* and defining a BSDF, *Bidirectional scattering distribution function*, at any point in space, not just on surfaces.
 
 
+## Indirect Rays
+Initially, when calculating the light at a certain point it was just using lambert light, ambient light and a value for the biradiance.
+But to complete the last part of the integral equation that in the sketch before was underlined as "scattered", we have to consider indirect rays.
+
+
 
