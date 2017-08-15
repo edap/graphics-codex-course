@@ -66,6 +66,7 @@ shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& 
     glm::vec3 faceNormal;
     glm::vec3 position;
     glm::vec3 rayDirection;
+    ofColor color;
     // then we iterate through all the triangles in all the meshes, searching
     // for the closest intersection
     for (const of3dPrimitive& primitive : this->primitives) {
@@ -83,6 +84,7 @@ shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& 
             if (intersection) {
                 if (baricenter.z < distanceToTheClosestSurface) {
                     found = true;
+                    color = face.getColor(0);
                     distanceToTheClosestSurface = baricenter.z;
                     faceNormal = face.getFaceNormal();
                     position = getPointOnTriangle(ray, baricenter);
@@ -93,7 +95,7 @@ shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& 
     }
 
     if (found) {
-        return shared_ptr<Surfel>(new Surfel(faceNormal, rayDirection, position));
+        return shared_ptr<Surfel>(new Surfel(faceNormal, rayDirection, position, color));
     } else {
         return nullptr;
     }
@@ -114,7 +116,7 @@ ofColor RayCaster::L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 wo) co
  transport path. As in all equations so far, X is the point at which radiance is being
  scattered and Y is the next node closer to the light on the light transport path.
 */
-ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const{
+ofFloatColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const{
     glm::vec3 Light = surfelX->emittedRadiance(wo);
     for (int i = 0; i<lights.size(); i++) {
         glm::vec3 lightPos = lights[i].getGlobalPosition();
@@ -126,21 +128,20 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
             glm::vec3 color = surfelX->getColor();
             // light power is not implemented in ofLight,
             // I use a getDiffuseColor().getBrightness() for this
-            float lightPower = lights[i].getDiffuseColor().getBrightness() * 100;
+            float lightPower = lights[i].getDiffuseColor().getBrightness() * 10;
             float biradiance = lightPower / (4 * PI * sqrt(distanceToLight));
 
             //lambertian light
             float dProd = abs(glm::dot(wi, surfelX->getGeometricNormal()));
             glm::vec3 finiteScatteringDensity = surfelX->finiteScatteringDensity(wi, wo);
             Light +=
-                //biradiance * // comment out this when debugging
+                biradiance * // comment out this when debugging
                 finiteScatteringDensity *
                 glm::vec3( dProd ) *
                 color;
         }
-
     }
-    return ofColor(Light.x*255, Light.y*255, Light.z*255);
+    return ofFloatColor(Light.x, Light.y, Light.z);
 };
 
 bool RayCaster::visible(const glm::vec3& surfelPos, const glm::vec3& lightPos) const{

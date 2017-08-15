@@ -28,7 +28,7 @@ protected:
     glm::vec3 getPointOnTriangle(const Ray& _ray, const glm::vec3& _baryPosition) const;
     ofColor L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 ray_direction_inverted) const;
     bool visible(const glm::vec3& surfelPos, const glm::vec3& lightPos) const;
-    ofColor L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const;
+    ofFloatColor L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const;
     vector<of3dPrimitive> primitives;
 
 };

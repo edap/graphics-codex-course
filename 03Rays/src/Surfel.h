@@ -5,7 +5,7 @@
 
 class Surfel {
 public:
-    Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 position);
+    Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 position, const ofColor color);
     virtual ~Surfel() {};
     glm::vec3 getPosition() const { return position; };
     glm::vec3 getGeometricNormal() const { return geometricNormal; };

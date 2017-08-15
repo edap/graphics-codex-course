@@ -1,6 +1,6 @@
 #include "Surfel.h"
 
-Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 _position){
+Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 _position, const ofColor _color){
     geometricNormal = _faceNormal;
     shadingNormal = _faceNormal; // TODO, this should be calculated, for example from a bump map
     position = _position;
@@ -21,7 +21,7 @@ glm::vec3 Surfel::finiteScatteringDensity(const glm::vec3& w_i, const glm::vec3&
     return lambertianReflectivity();
 }
 
-glm::vec3 Surfel::getColor() const{
+glm::vec3 Surfel::getColor() const {
     return glm::vec3(1.0,1.0,1.0);
 }
 
