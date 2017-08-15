@@ -1,6 +1,6 @@
 #include "Surfel.h"
 
-Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 _position, const ofColor _color){
+Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, const glm::vec3 _position, const ofFloatColor _color){
     geometricNormal = _faceNormal;
     shadingNormal = _faceNormal; // TODO, this should be calculated, for example from a bump map
     position = _position;
@@ -8,7 +8,7 @@ Surfel::Surfel(const glm::vec3& _faceNormal, const glm::vec3& _rayDirection, con
     if(glm::dot(_faceNormal, _rayDirection) >= 0){
         backface = true;
     }
-    color = glm::vec3(1.f,1.f,1.f); //for now, all the surfaces are white. TODO, pass the color when initializing the Surfel
+    color = glm::vec3(_color.r,_color.g,_color.b); //for now, all the surfaces are white. TODO, pass the color when initializing the Surfel
 
 }
 
@@ -22,7 +22,7 @@ glm::vec3 Surfel::finiteScatteringDensity(const glm::vec3& w_i, const glm::vec3&
 }
 
 glm::vec3 Surfel::getColor() const {
-    return glm::vec3(1.0,1.0,1.0);
+    return color;
 }
 
 // From http://graphicscodex.com/projects/rays/

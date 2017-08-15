@@ -4,6 +4,7 @@ of3dPrimitive MeshHelper::toPrimitive(const ofMesh& mesh) {
     of3dPrimitive primitive;
     primitive.getMesh().clear();
     primitive.getMesh().append(mesh);
+    primitive.getMesh().enableColors();
     primitive.getMesh().enableNormals();
     return primitive;
 }

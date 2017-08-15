@@ -66,7 +66,7 @@ shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& 
     glm::vec3 faceNormal;
     glm::vec3 position;
     glm::vec3 rayDirection;
-    ofColor color;
+    ofFloatColor color;
     // then we iterate through all the triangles in all the meshes, searching
     // for the closest intersection
     for (const of3dPrimitive& primitive : this->primitives) {
@@ -84,7 +84,11 @@ shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& 
             if (intersection) {
                 if (baricenter.z < distanceToTheClosestSurface) {
                     found = true;
-                    color = face.getColor(0);
+                    if(face.hasColors()) {
+                        color = face.getColor(1);
+                    } else {
+                        color = ofFloatColor(1.f,1.f,1.f);
+                    };
                     distanceToTheClosestSurface = baricenter.z;
                     faceNormal = face.getFaceNormal();
                     position = getPointOnTriangle(ray, baricenter);

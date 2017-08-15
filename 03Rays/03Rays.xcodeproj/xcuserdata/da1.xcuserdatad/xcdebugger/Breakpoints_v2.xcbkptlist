@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
-            timestampString = "524487824.464508"
+            timestampString = "524490066.185103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "ofApp::onIndRaysEvent(ofxDatGuiSliderEvent e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
-            timestampString = "524487824.464508"
+            timestampString = "524490066.185103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115">
+            startingLineNumber = "116"
+            endingLineNumber = "116">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524479203.953427"
+            timestampString = "524489935.724709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158">
+            startingLineNumber = "162"
+            endingLineNumber = "162">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524477905.290883"
+            timestampString = "524489935.724709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "RayCaster::L_scatteredDirect(const shared_ptr&lt;Surfel&gt;&amp; surfelX,const glm::vec3 wo)"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524477905.290883"
+            timestampString = "524489935.724709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "RayCaster::L_scatteredDirect(const shared_ptr&lt;Surfel&gt;&amp; surfelX,const glm::vec3 wo)"
             landmarkType = "7">
          </BreakpointContent>
@@ -148,12 +148,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/Surfel.cpp"
-            timestampString = "524479320.865373"
+            timestampString = "524489499.863016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "10"
             endingLineNumber = "10"
-            landmarkName = "Surfel::Surfel(const glm::vec3&amp; _faceNormal, const glm::vec3&amp; _rayDirection, const glm::vec3 _position, const ofColor _color)"
+            landmarkName = "Surfel::Surfel(const glm::vec3&amp; _faceNormal, const glm::vec3&amp; _rayDirection, const glm::vec3 _position, const ofFloatColor _color)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,12 +164,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/Surfel.cpp"
-            timestampString = "524479653.269894"
+            timestampString = "524489499.863016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "10"
             endingLineNumber = "10"
-            landmarkName = "Surfel::Surfel(const glm::vec3&amp; _faceNormal, const glm::vec3&amp; _rayDirection, const glm::vec3 _position, const ofColor _color)"
+            landmarkName = "Surfel::Surfel(const glm::vec3&amp; _faceNormal, const glm::vec3&amp; _rayDirection, const glm::vec3 _position, const ofFloatColor _color)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/RayCaster.cpp"
+            timestampString = "524489929.346973"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "RayCaster::findFirstIntersectionWithThePrimitives(const Ray&amp; ray)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
