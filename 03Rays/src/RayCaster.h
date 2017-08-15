@@ -20,7 +20,6 @@ public:
 protected:
     vector<ofLight> lights;
     shared_ptr<Surfel> findFirstIntersectionWithThePrimitives(const Ray& ray) const;
-    shared_ptr<Surfel> findFirstIntersection(const Ray& ray, const ofMesh& mesh, const glm::mat4& globalTransfMatrix) const;
     // 
     ofColor L_i(const Ray& ray) const;
     // Find the first intersection with the scene

@@ -34,24 +34,70 @@ ofColor RayCaster::L_i(const Ray& ray) const{
     // for all the triangles in a mesh
     // Find the first intersection (and the closest!) with the scene
 
-    for(of3dPrimitive primitive : primitives){
-        const shared_ptr<Surfel>& surfelY = findFirstIntersection(ray, primitive.getMesh(), primitive.getGlobalTransformMatrix());
 
-        //if (notNull(s)) TODO, if a ray is found, create a Surfel
-        if (surfelY) {
-            return L_0(surfelY, -ray.direction);
-        } else {
-            return ofColor(0,0,0);
+    const shared_ptr<Surfel>& surfelY = findFirstIntersectionWithThePrimitives(ray);
+    if (surfelY) {
+        return L_0(surfelY, -ray.direction);
+    } else {
+        return ofColor(0,0,0);
+    }
+
+
+
+//    for(of3dPrimitive primitive : primitives){
+//        const shared_ptr<Surfel>& surfelY = findFirstIntersection(ray, primitive.getMesh(), primitive.getGlobalTransformMatrix());
+//
+//        //if (notNull(s)) TODO, if a ray is found, create a Surfel
+//        if (surfelY) {
+//            return L_0(surfelY, -ray.direction);
+//        } else {
+//            return ofColor(0,0,0);
+//        }
+//    }
+}
+
+// This method find the first intersection between a ray and a mesh.
+// If an intersection is founded, it returns a surfel, otherwise null.
+shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& ray) const{
+    // at the beginning, no intersection is found and the distance to the closest surface
+    // is set to an high value;
+    bool found = false;
+    float distanceToTheClosestSurface = numeric_limits<float>::max();
+    glm::vec3 faceNormal;
+    glm::vec3 position;
+    glm::vec3 rayDirection;
+    // then we iterate through all the triangles in all the meshes, searching
+    // for the closest intersection
+    for (const of3dPrimitive& primitive : this->primitives) {
+        for (const ofMeshFace& face : primitive.getMesh().getUniqueFaces()) {
+            glm::vec3 baricenter;
+            bool intersection = glm::intersectRayTriangle(
+                                    ray.origin, ray.direction,
+                                    glm::vec3(primitive.getGlobalTransformMatrix() * glm::vec4(face.getVertex(0), 1.f)),
+                                    glm::vec3(primitive.getGlobalTransformMatrix() * glm::vec4(face.getVertex(1), 1.f)),
+                                    glm::vec3(primitive.getGlobalTransformMatrix() * glm::vec4(face.getVertex(2), 1.f)),
+                                    baricenter);
+            // when an intersection is found, it updates the distanceToTheClosestSurface value
+            // this value is used to order the new intersections, if a new intersection with a smaller baricenter.z
+            // value is found, this one will become the new intersection
+            if (intersection) {
+                if (baricenter.z < distanceToTheClosestSurface) {
+                    found = true;
+                    distanceToTheClosestSurface = baricenter.z;
+                    faceNormal = face.getFaceNormal();
+                    position = getPointOnTriangle(ray, baricenter);
+                    rayDirection = ray.direction;
+                }
+            }
         }
     }
-}
 
-shared_ptr<Surfel> RayCaster::findFirstIntersectionWithThePrimitives(const Ray& ray) const {
-    for(of3dPrimitive primitive : this->primitives){
-        const shared_ptr<Surfel>& surfelY = findFirstIntersection(ray, primitive.getMesh(), primitive.getGlobalTransformMatrix());
-
+    if (found) {
+        return shared_ptr<Surfel>(new Surfel(faceNormal, rayDirection, position));
+    } else {
+        return nullptr;
     }
-}
+};
 
 // It computes the light leaving Y, which is the same as
 // the light entering X when the medium is non-absorptive
@@ -87,7 +133,7 @@ ofColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm
             float dProd = abs(glm::dot(wi, surfelX->getGeometricNormal()));
             glm::vec3 finiteScatteringDensity = surfelX->finiteScatteringDensity(wi, wo);
             Light +=
-                biradiance * // comment out this when debugging
+                //biradiance * // comment out this when debugging
                 finiteScatteringDensity *
                 glm::vec3( dProd ) *
                 color;
@@ -101,46 +147,6 @@ bool RayCaster::visible(const glm::vec3& surfelPos, const glm::vec3& lightPos) c
     return true;
 }
 
-// This method find the first intersection between a ray and a mesh.
-// If an intersection is founded, it returns a surfel, otherwise null.
-shared_ptr<Surfel> RayCaster::findFirstIntersection(const Ray& ray, const ofMesh& mesh, const glm::mat4& globalTransfMatrix) const{
-    vector<ofMeshFace> faces = mesh.getUniqueFaces();
-    // at the beginning, no intersection is found and the distance to the closest surface
-    // is set to an high value;
-    bool found = false;
-    float distanceToTheClosestSurface = numeric_limits<float>::max();
-    glm::vec3 faceNormal;
-    glm::vec3 position;
-    glm::vec3 rayDirection;
-
-    for (ofMeshFace face : faces) {
-        glm::vec3 baricenter;
-        bool intersection = glm::intersectRayTriangle(
-                                          ray.origin, ray.direction,
-                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(0), 1.f)),
-                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(1), 1.f)),
-                                          glm::vec3(globalTransfMatrix * glm::vec4(face.getVertex(2), 1.f)),
-                                          baricenter);
-        // when an intersection is found, it updates the distanceToTheClosestSurface value
-        // this value is used to order the new intersections, if a new intersection with a smaller baricenter.z
-        // value is found, this one will become the new intersection
-        if (intersection) {
-            if (baricenter.z < distanceToTheClosestSurface) {
-                found = true;
-                distanceToTheClosestSurface = baricenter.z;
-                faceNormal = face.getFaceNormal();
-                position = getPointOnTriangle(ray, baricenter);
-                rayDirection = ray.direction;
-            }
-        }
-    }
-
-    if (found) {
-        return shared_ptr<Surfel>(new Surfel(faceNormal, rayDirection, position));
-    } else {
-        return nullptr;
-    }
-};
 
 /*
  This method takes as argument a ray and the baricentric coordinates and returns
