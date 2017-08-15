@@ -82,6 +82,7 @@
 		64C563B8158C37E9D07AE29D /* ofxDatGuiFRM.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiFRM.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiFRM.h; sourceTree = SOURCE_ROOT; };
 		6A0E743407465957DB764ED3 /* mesh.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = mesh.h; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/mesh.h; sourceTree = SOURCE_ROOT; };
 		6E069CE4C58E970E3429DBE5 /* Importer.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Importer.hpp; path = ../../../addons/ofxAssimpModelLoader/libs/assimp/include/assimp/Importer.hpp; sourceTree = SOURCE_ROOT; };
+		6F2ECCDC1F4321BC00F5C050 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		6F3710591F3F3AE40062CCAA /* MeshHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshHelper.cpp; sourceTree = "<group>"; };
 		6F37105A1F3F3AE40062CCAA /* MeshHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshHelper.h; sourceTree = "<group>"; };
 		6FA0BF5D1F2A267600B8BFF6 /* RayCaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RayCaster.cpp; sourceTree = "<group>"; };
@@ -366,6 +367,7 @@
 				6FA0BF661F2B690800B8BFF6 /* Ray.h */,
 				6F3710591F3F3AE40062CCAA /* MeshHelper.cpp */,
 				6F37105A1F3F3AE40062CCAA /* MeshHelper.h */,
+				6F2ECCDC1F4321BC00F5C050 /* Const.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

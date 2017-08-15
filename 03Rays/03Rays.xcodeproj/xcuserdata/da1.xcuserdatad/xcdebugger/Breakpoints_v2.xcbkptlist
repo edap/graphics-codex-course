@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524489935.724709"
+            timestampString = "524495754.545915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162">
+            startingLineNumber = "185"
+            endingLineNumber = "185">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524489935.724709"
+            timestampString = "524495357.118567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "RayCaster::L_scatteredDirect(const shared_ptr&lt;Surfel&gt;&amp; surfelX,const glm::vec3 wo)"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/RayCaster.cpp"
-            timestampString = "524489935.724709"
+            timestampString = "524495357.118567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "RayCaster::L_scatteredDirect(const shared_ptr&lt;Surfel&gt;&amp; surfelX,const glm::vec3 wo)"
             landmarkType = "7">
          </BreakpointContent>

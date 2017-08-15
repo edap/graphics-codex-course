@@ -124,11 +124,12 @@ ofFloatColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,cons
     glm::vec3 Light = surfelX->emittedRadiance(wo);
     for (int i = 0; i<lights.size(); i++) {
         glm::vec3 lightPos = lights[i].getGlobalPosition();
+        glm::vec3 offset = lightPos - surfelX->getPosition();
+        const float distanceToLight = glm::length(offset);
+        glm::vec3 wi = glm::normalize(offset);
 
-        if (visible(surfelX->getPosition(), lightPos)) {
-            glm::vec3 offset = lightPos - surfelX->getPosition();
-            const float distanceToLight = glm::length(offset);
-            glm::vec3 wi = glm::normalize(offset);
+        if (visible(surfelX->getPosition(), wi, distanceToLight)) {
+
             glm::vec3 color = surfelX->getColor();
             // light power is not implemented in ofLight,
             // I use a getDiffuseColor().getBrightness() for this
@@ -148,7 +149,28 @@ ofFloatColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,cons
     return ofFloatColor(Light.x, Light.y, Light.z);
 };
 
-bool RayCaster::visible(const glm::vec3& surfelPos, const glm::vec3& lightPos) const{
+bool RayCaster::visible(const glm::vec3& P, const glm::vec3& direction, const float& distance) const{
+    const Ray ray = Ray(P + direction * CONST_EPSILON, direction);
+    float dist = distance - CONST_EPSILON;
+
+    for (const of3dPrimitive& primitive : this->primitives) {
+        for (const ofMeshFace& face : primitive.getMesh().getUniqueFaces()) {
+            glm::vec3 baricenter;
+            // Test each potential shadow caster to see if it lies between P and the light
+            bool intersection = glm::intersectRayTriangle(
+                                                          ray.origin, ray.direction,
+                                                          glm::vec3(primitive.getGlobalTransformMatrix() * glm::vec4(face.getVertex(0), 1.f)),
+                                                          glm::vec3(primitive.getGlobalTransformMatrix() * glm::vec4(face.getVertex(1), 1.f)),
+                                                          glm::vec3(primitive.getGlobalTransformMatrix() * glm::vec4(face.getVertex(2), 1.f)),
+                                                          baricenter);
+            if (intersection) {
+                if (baricenter.z < dist) {
+                    // Ah! This triangle is closer than the light. Shadow
+                    return false;
+                }
+            }
+        }
+    }
     return true;
 }
 

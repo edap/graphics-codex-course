@@ -88,6 +88,7 @@ void ofApp::draw(){
         ofDrawAxis(100);
         cam.end();
     } else {
+        glDisable(GL_COLOR_MATERIAL);
         image->draw(10,10, 640, 400);
         ofDisableDepthTest();
         gui->draw();

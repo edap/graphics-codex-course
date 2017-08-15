@@ -4,6 +4,7 @@
 #include "PinholeCamera.h"
 #include "ofxAssimpModelLoader.h"
 #include "Ray.h"
+#include "Const.h"
 
 // It takes a primary ray, it intersect it with a scene and it return a pointer to a surface element.
 // A surface element (“surfel”) [Pfister2000Surfels] contains the intersection position, normal, and material information
@@ -27,7 +28,7 @@ protected:
 
     glm::vec3 getPointOnTriangle(const Ray& _ray, const glm::vec3& _baryPosition) const;
     ofColor L_0(const shared_ptr<Surfel>& surfelY, const glm::vec3 ray_direction_inverted) const;
-    bool visible(const glm::vec3& surfelPos, const glm::vec3& lightPos) const;
+    bool visible(const glm::vec3& surfelPos, const glm::vec3& wi, const float& distanceToLight) const;
     ofFloatColor L_scatteredDirect(const shared_ptr<Surfel>& surfelX,const glm::vec3 wo) const;
     vector<of3dPrimitive> primitives;
 
