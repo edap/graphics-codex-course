@@ -144,8 +144,7 @@ ofFloatColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,cons
                 vecAmbientLight +
                 biradiance * // comment out this when debugging
                 finiteScatteringDensity *
-                glm::vec3( dProd ) *
-                color;
+                glm::vec3( dProd ) * color;
         }
     }
     return ofFloatColor(Light.x, Light.y, Light.z);
