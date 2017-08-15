@@ -129,7 +129,8 @@ ofFloatColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,cons
         glm::vec3 wi = glm::normalize(offset);
 
         if (visible(surfelX->getPosition(), wi, distanceToLight)) {
-
+            ofFloatColor ambientLight = lights[i].getAmbientColor();
+            glm::vec3 vecAmbientLight = glm::vec3(ambientLight.r, ambientLight.r, ambientLight.b);
             glm::vec3 color = surfelX->getColor();
             // light power is not implemented in ofLight,
             // I use a getDiffuseColor().getBrightness() for this
@@ -140,6 +141,7 @@ ofFloatColor RayCaster::L_scatteredDirect(const shared_ptr<Surfel>& surfelX,cons
             float dProd = abs(glm::dot(wi, surfelX->getGeometricNormal()));
             glm::vec3 finiteScatteringDensity = surfelX->finiteScatteringDensity(wi, wo);
             Light +=
+                vecAmbientLight +
                 biradiance * // comment out this when debugging
                 finiteScatteringDensity *
                 glm::vec3( dProd ) *
