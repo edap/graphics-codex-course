@@ -6,6 +6,8 @@ This repository contains my exercises for the [Graphics Codex](http://graphicsco
 
 App: 01Cubes
 
+Lesson: [http://graphicscodex.com/projects/cubes/index.html](http://graphicscodex.com/projects/cubes/index.html)
+
 Notes: This project contains the app that was used as example for the  [ofxPhyllotaxis](https://github.com/edap/ofxPhyllotaxis) addon.
 ![cubes](img/cubes.png)
 
@@ -13,17 +15,23 @@ Notes: This project contains the app that was used as example for the  [ofxPhyll
 
 App: 02Meshes
 
+Lesson: [http://graphicscodex.com/projects/meshes/index.html](http://graphicscodex.com/projects/meshes/index.html)
+
 Notes: This project contains one of the app that was used as example for the  [ofxBranchesPrimitive](https://github.com/edap/ofxBranchesPrimitive) addon.
 ![02Meshes](img/02Meshes.png)
 
 
 ### Rays
 
-Notes: This app is a WIP. The Cornell Box model comes from [ Morgan McGuire, Computer Graphics Archive, July 2017] (https://casual-effects.com/data)
+Lesson: [http://graphicscodex.com/projects/rays/index.html](http://graphicscodex.com/projects/rays/index.html)
 
-App: 03Rays
+The output of the "Rays" project is the [ofxRayTracer](https://github.com/edap/ofxRayTracer) addon
 
-### Paths
+![02Rays](img/03Rays.jpg)
 
-App:
+### GPU
+
+Lesson: [http://graphicscodex.com/projects/gpu/index.html](http://graphicscodex.com/projects/gpu/index.html)
+
+
 
